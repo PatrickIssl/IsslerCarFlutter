@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1036714912526",
+    "project_id": "iercar",
+    "storage_bucket": "iercar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036714912526:android:779346e26c56721268055f",
+        "android_client_info": {
+          "package_name": "patrick.issler.isslercar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036714912526-ombtmpf4qbn78gp5b154tr8j0gqunmc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA79ueH2_7eACVo1_Epq6wqnaJMJzjtmL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036714912526-ombtmpf4qbn78gp5b154tr8j0gqunmc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
