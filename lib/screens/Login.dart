@@ -21,8 +21,8 @@ class _LoginState extends State<Login> {
           email: _controllerLogin.text,
           password: _controllerSenha.text
       ).then((firebaseUser){
-        print("Usuario logado com sucesso Email: "+firebaseUser.email);
         globals.usuarioAtual = firebaseUser;
+        Navigator.push(context,MaterialPageRoute(builder: (context) => CriarUsuario()),);
       }).catchError((erro){
         print(" erro ao logar : "+ erro.toString());
       });
