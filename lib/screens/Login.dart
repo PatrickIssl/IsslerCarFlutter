@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:isslercar/screens/CriarUsuario.dart';
+import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'RecuperaSenha.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 
@@ -22,7 +23,7 @@ class _LoginState extends State<Login> {
           password: _controllerSenha.text
       ).then((firebaseUser){
         globals.usuarioAtual = firebaseUser;
-        Navigator.push(context,MaterialPageRoute(builder: (context) => CriarUsuario()),);
+        Navigator.push(context,MaterialPageRoute(builder: (context) => TelaPrincipal()),);
       }).catchError((erro){
         print(" erro ao logar : "+ erro.toString());
       });

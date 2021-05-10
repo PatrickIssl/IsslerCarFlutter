@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:isslercar/variaveis/globals.dart' as globals;
 
 class TelaPrincipal extends StatefulWidget {
   @override
@@ -85,7 +86,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                         ),
                       ),
                     ),
-                      onTap: (){},
+                      onTap: (){globals.auth.signOut();},
                   ),
                 ],
               ),
