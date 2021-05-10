@@ -10,7 +10,13 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Menu Principal"),
+        title:Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Menu Principal"),
+            Icon(Icons.account_circle,size: 50,)
+          ],
+        ),
 
       ),
       body: Container(
@@ -33,35 +39,56 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Container(height: 150 , width: 150,
-                    child: Icon(Icons.people,size: 100,),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF007BFF),
-                          Color(0xA36B8FFF),
-                        ],
+                  GestureDetector(
+                    child:
+                    Container(height: 150 , width: 150,
+                      child:
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:<Widget>[
+                          Icon(Icons.people,size: 100,),
+                          Text("Usuários", style: TextStyle(fontSize: 20, color: Colors.white),)
+                        ]
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFF007BFF),
+                            Color(0xA36B8FFF),
+                          ],
+                        ),
                       ),
                     ),
+                    onTap: (){},
                   ),
-                  Container(height: 150 , width: 150,
-                    child: Icon(Icons.car_repair,size: 100,),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF007BFF),
-                          Color(0xA36B8FFF),
-                        ],
+                  GestureDetector(
+                    child:
+                    Container(height: 150 , width: 150,
+                      child:
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:<Widget>[
+                            Icon(Icons.car_repair,size: 100,),
+                            Text("Orçamento", style: TextStyle(fontSize: 20, color: Colors.white),)
+                          ]
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFF007BFF),
+                            Color(0xA36B8FFF),
+                          ],
+                        ),
                       ),
                     ),
+                      onTap: (){},
                   ),
                 ],
               ),
-
             ],
           ),
         ),
