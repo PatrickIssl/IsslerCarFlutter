@@ -6,10 +6,10 @@ import 'variaveis/globals.dart' as globals;
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-  FirebaseUser usuarioAtual = await globals.auth.currentUser();
+   globals.usuarioAtual = await globals.auth.currentUser();
 
-  if(usuarioAtual != null){
-    print("usuario Logado: "+ usuarioAtual.email);
+  if(globals.usuarioAtual != null){
+    print("usuario Logado: "+ globals.usuarioAtual.email);
     runApp(MaterialApp(
         home: Login()
     ));

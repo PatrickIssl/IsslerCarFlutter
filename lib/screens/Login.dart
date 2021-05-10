@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:isslercar/screens/CriarUsuario.dart';
 import 'RecuperaSenha.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 
@@ -21,7 +22,7 @@ class _LoginState extends State<Login> {
           password: _controllerSenha.text
       ).then((firebaseUser){
         print("Usuario logado com sucesso Email: "+firebaseUser.email);
-
+        globals.usuarioAtual = firebaseUser;
       }).catchError((erro){
         print(" erro ao logar : "+ erro.toString());
       });
@@ -55,7 +56,11 @@ class _LoginState extends State<Login> {
                   child: Image.asset("assets/imagens/logo.png")
               ),
               Padding(padding: EdgeInsets.only(top: 75),
-                child:    Text(globals.bemVindo),
+                child:    Text(globals.bemVindo,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                ),),
               ),
               Padding(padding: EdgeInsets.only(top: 25),
                 child:Theme(
@@ -140,10 +145,31 @@ class _LoginState extends State<Login> {
                     ],
                   )
               ),
-              Padding(padding: EdgeInsets.only(top: 75),
+              Padding(padding: EdgeInsets.only(top: 50),
                   child: GestureDetector(
                     onTap: _realizarLogin,
                     child:Image.asset("assets/imagens/flecha.png"),
+                  )
+              ),
+              Padding(padding: EdgeInsets.only(top: 25),
+                  child:Column(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap:(){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CriarUsuario()),
+                          );
+                        },
+                        child:Text("Cadastre-se",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
                   )
               ),
               Padding(padding: EdgeInsets.only(top: 75),
