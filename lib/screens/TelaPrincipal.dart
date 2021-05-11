@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:isslercar/main.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
+import 'package:isslercar/screens/Login.dart';
 
 class TelaPrincipal extends StatefulWidget {
   @override
   _TelaPrincipalState createState() => _TelaPrincipalState();
+
 }
 
+
 class _TelaPrincipalState extends State<TelaPrincipal> {
-  @override
+
+  void _restartApp() async {
+    RestartWidget.restartApp(context);
+  }
+
+  _deslogar() async{
+    globals.auth.signOut();
+    _restartApp();
+    print("teste");
+  }
+
+
+
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -15,7 +33,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text("Menu Principal"),
-            Icon(Icons.account_circle,size: 50,)
           ],
         ),
 
@@ -94,6 +111,32 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           ),
         ),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child:Column(
+                children: [
+                  CircleAvatar(child: Text('${globals.usuarioAtual.email[0].toUpperCase()}', style: TextStyle(fontSize: 50),),
+                  minRadius: 50,
+                  ),
+                  Padding(padding: EdgeInsets.only(top:10)),
+                  Text("Usuário: ${globals.usuarioAtual.email}")
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Sair"),
+              subtitle: Text("Encerrar Sessão"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap:_deslogar
+
+            )
+
+          ],
+        ),
+      )
     );
   }
 }

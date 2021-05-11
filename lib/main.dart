@@ -1,22 +1,50 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:isslercar/screens/Login.dart';
-import 'package:isslercar/screens/TelaPrincipal.dart';
+import 'package:isslercar/screens/SplashScreen.dart';
 import 'variaveis/globals.dart' as globals;
 
+
+import 'package:flutter/material.dart';
+
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
+    WidgetsFlutterBinding.ensureInitialized();
+    runApp(
+      RestartWidget(
+        child: MaterialApp(
+            home: SplashScreen()
+        ),
+      ),
+    );
+  }
 
-   globals.usuarioAtual = await globals.auth.currentUser();
+class RestartWidget extends StatefulWidget {
+  RestartWidget({this.child});
 
-  if(globals.usuarioAtual != null){
-    print("usuario Logado: "+ globals.usuarioAtual.email);
-    runApp(MaterialApp(
-        home: TelaPrincipal()
-    ));
-  }else{
-    runApp(MaterialApp(
-        home: Login()
-    ));
+  final Widget child;
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_RestartWidgetState>().restartApp();
+  }
+
+  @override
+  _RestartWidgetState createState() => _RestartWidgetState();
+}
+
+class _RestartWidgetState extends State<RestartWidget> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: key,
+      child: widget.child,
+    );
   }
 }
