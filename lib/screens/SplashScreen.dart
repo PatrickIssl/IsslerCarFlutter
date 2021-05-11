@@ -35,12 +35,12 @@ class _SplashScreenState extends State<SplashScreen> {
           if(globals.usuarioAtual != null){
             if(globals.entrou == 0 ){
               globals.entrou = 1;
-              await Navigator.push(context,MaterialPageRoute(builder: (context) => TelaPrincipal()),);
+              await Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TelaPrincipal()),);
             }
           }else{
             if(globals.entrou == 0){
               globals.entrou = 1;
-              await Navigator.push(context,MaterialPageRoute(builder: (context) => Login()),);
+              await Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Login()),);
             }
           }
         } else {
@@ -62,10 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                Color(0xFFA7A6A6),
-                Color(0xFFFFFFFF),
-              ],
+              colors: globals.colorsFundo,
             ),
           ),
           child: Column(

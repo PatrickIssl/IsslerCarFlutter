@@ -1,6 +1,23 @@
 library my_prj.globals;
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:isslercar/screens/Login.dart';
+
+
+var colorsFundo= [
+  Color(0xFFD2D2D2),
+  Color(0xFFFFFFFF),
+];
+
+var gradienteAzul = [
+  Color(0xFF007BFF),
+  Color(0xA36B8FFF),
+];
+
+var gradienteVermelho = [
+  Color(0xFF840404),
+  Color(0xFFFF2A2A),
+];
 
 //metodo auth da autenticação do usuário
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -34,7 +51,55 @@ var recuperarSenha = "Informe o seu E-mail para recuperação de senha";
 
 var criarUsuario = "Informe os dados do usuário a ser cadastrado";
 
-//tela principal
 
 
 
+
+
+class DrawerComun extends StatefulWidget {
+  @override
+  _DrawerComunState createState() => _DrawerComunState();
+}
+
+class _DrawerComunState extends State<DrawerComun> {
+
+  void _voltarTelaLogin() async {
+    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Login()),);
+  }
+
+  _deslogar() async{
+    auth.signOut();
+    _voltarTelaLogin();
+    print("teste");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: <Widget>[
+          DrawerHeader(
+            child:Column(
+              children: [
+                CircleAvatar(child: Text('${usuarioAtual.email[0].toUpperCase()}', style: TextStyle(fontSize: 50),),
+                  minRadius: 50,
+                ),
+                Padding(padding: EdgeInsets.only(top:10)),
+                Text("Usuário: ${usuarioAtual.email}")
+              ],
+            ),
+          ),
+          ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Sair"),
+              subtitle: Text("Encerrar Sessão"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap:_deslogar
+
+          )
+
+        ],
+      ),
+    );
+  }
+}

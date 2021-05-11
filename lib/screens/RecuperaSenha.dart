@@ -34,10 +34,7 @@ class _RecuperaSenhaState extends State<RecuperaSenha> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFD2D2D2),
-              Color(0xFFFFFFFF),
-            ],
+            colors: globals.colorsFundo,
           ),
         ),
         child: SingleChildScrollView(

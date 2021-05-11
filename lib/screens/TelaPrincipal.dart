@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:isslercar/main.dart';
+import 'package:isslercar/screens/TelaOrcamentos.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:isslercar/screens/Login.dart';
 
@@ -12,16 +13,6 @@ class TelaPrincipal extends StatefulWidget {
 
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
-
-  void _restartApp() async {
-    RestartWidget.restartApp(context);
-  }
-
-  _deslogar() async{
-    globals.auth.signOut();
-    _restartApp();
-    print("teste");
-  }
 
 
 
@@ -43,10 +34,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFA7A6A6),
-              Color(0xFFFFFFFF),
-            ],
+            colors: globals.colorsFundo,
           ),
         ),
         child: Container(
@@ -72,10 +60,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFF007BFF),
-                            Color(0xA36B8FFF),
-                          ],
+                          colors: globals.gradienteAzul,
                         ),
                       ),
                     ),
@@ -96,14 +81,13 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [
-                            Color(0xFF007BFF),
-                            Color(0xA36B8FFF),
-                          ],
+                          colors: globals.gradienteAzul,
                         ),
                       ),
                     ),
-                      onTap: (){globals.auth.signOut();},
+                      onTap: (){
+                       Navigator.push(context,MaterialPageRoute(builder: (context) => TelaOrcamentos()),);
+                      },
                   ),
                 ],
               ),
@@ -111,32 +95,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           ),
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            DrawerHeader(
-              child:Column(
-                children: [
-                  CircleAvatar(child: Text('${globals.usuarioAtual.email[0].toUpperCase()}', style: TextStyle(fontSize: 50),),
-                  minRadius: 50,
-                  ),
-                  Padding(padding: EdgeInsets.only(top:10)),
-                  Text("Usuário: ${globals.usuarioAtual.email}")
-                ],
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Sair"),
-              subtitle: Text("Encerrar Sessão"),
-              trailing: Icon(Icons.arrow_forward),
-              onTap:_deslogar
-
-            )
-
-          ],
-        ),
-      )
+      drawer: globals.DrawerComun()
     );
   }
 }

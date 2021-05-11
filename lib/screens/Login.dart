@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
           password: _controllerSenha.text
       ).then((firebaseUser){
         globals.usuarioAtual = firebaseUser;
-        Navigator.push(context,MaterialPageRoute(builder: (context) => TelaPrincipal()),);
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TelaPrincipal()),);
       }).catchError((erro){
         print(" erro ao logar : "+ erro.toString());
       });
@@ -42,10 +42,7 @@ class _LoginState extends State<Login> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFD2D2D2),
-              Color(0xFFFFFFFF),
-            ],
+            colors: globals.colorsFundo,
           ),
         ),
         child: SingleChildScrollView(
