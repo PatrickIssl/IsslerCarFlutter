@@ -34,13 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
           timer.cancel();
           if(globals.usuarioAtual != null){
             if(globals.entrou == 0 ){
-              print("\n\n\n\n\n entrou \n\n\n\n");
               globals.entrou = 1;
               await Navigator.push(context,MaterialPageRoute(builder: (context) => TelaPrincipal()),);
             }
           }else{
             if(globals.entrou == 0){
-              print("\n\n\n\n\n entrou \n\n\n\n");
               globals.entrou = 1;
               await Navigator.push(context,MaterialPageRoute(builder: (context) => Login()),);
             }
