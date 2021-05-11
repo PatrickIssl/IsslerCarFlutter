@@ -13,6 +13,8 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
 
   TextEditingController _carroController = TextEditingController();
   TextEditingController _placaController = TextEditingController();
+  TextEditingController _anoController = TextEditingController();
+  TextEditingController _pecasController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,27 +44,51 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
         child: SingleChildScrollView(
           child: Column(
            children: <Widget>[
-            Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
-                child:
 
-
+          Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
+              child: Row(children: [
+               Expanded(
+                 flex: 3,
+                 child:
                  TextField(
-                  decoration: InputDecoration(
-                      hintText: "Informe o modelo do veículo",
-                      labelText: "Modelo",
-                      labelStyle: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black
-                      )
-                  ),
-                  onSubmitted: (String texto){
+                   decoration: InputDecoration(
+                       hintText: "Modelo do veículo",
+                       labelText: "Modelo",
+                       labelStyle: TextStyle(
+                           fontSize: 20,
+                           color: Colors.blue
+                       )
+                   ),
+                   onSubmitted: (String texto){
 
-                    print("valor digitado:" +  texto);
+                     print("valor digitado:" +  texto);
 
-                  },
-                  controller: _carroController,
-                )
-            ),
+                   },
+                   controller: _carroController,
+                 )
+               ),
+               SizedBox(
+                 width: 20,
+               ),
+               Expanded(
+                 flex: 2,
+                 child:
+                 Padding(
+                   padding: EdgeInsets.only(top:20),
+                   child: MaskedTextField(
+                     mask: "xxxx/xxxx",
+                     maxLength: 9,
+                     inputDecoration: new InputDecoration(
+                         hintText: "Ano Veículo",
+                         labelText: "Placa",
+                         labelStyle: TextStyle(fontSize: 20,
+                             color: Colors.blue)),
+                     maskedTextFieldController: _anoController,
+                   ),
+                 )
+               )
+             ])
+          ),
              Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
                  child:
                  MaskedTextField(
@@ -72,8 +98,29 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                        hintText: "Informe a placa do veículo",
                        labelText: "Placa",
                        labelStyle: TextStyle(fontSize: 20,
-                       color: Colors.black)),
+                       color: Colors.blue)),
                    maskedTextFieldController: _placaController,
+                 )
+             ),
+             Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
+                 child:Column(
+                   children: <Widget>[
+                     Card(
+                         child: Padding(
+                           padding: EdgeInsets.all(8.0),
+                           child: TextField(
+                             maxLines: 8,
+                             decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                 labelText: "Peças",
+                                 hintText: "Informe as Peças para realizar o orçamento",
+                                 labelStyle: TextStyle(fontSize: 20,
+                                 color: Colors.blue)),
+                             controller: _pecasController,
+                           ),
+                         )
+                     )
+                   ],
                  )
              ),
            ],
