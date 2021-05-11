@@ -1,4 +1,5 @@
 library my_prj.globals;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:isslercar/screens/Login.dart';
@@ -21,6 +22,9 @@ var gradienteVermelho = [
 
 //metodo auth da autenticação do usuário
 FirebaseAuth auth = FirebaseAuth.instance;
+
+//banco de dados
+Firestore db = Firestore.instance;
 
 //splashScreen
 var titulo = "ISSLER";

@@ -18,6 +18,28 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
   TextEditingController _dataController = TextEditingController();
   TextEditingController _corController = TextEditingController();
 
+
+  _salvarDados(){
+
+    try {
+      globals.db.collection("orcamentos").add(
+          {
+            "modelo": _carroController.text.toString(),
+            "placa": _placaController.text.toString(),
+            "ano": _anoController.text.toString(),
+            "pecas": _pecasController.text.toString(),
+            "data de entrada": _dataController.text.toString(),
+            "cor": _corController.text.toString()
+          }
+      );
+    }on Exception catch(_){
+      print('never reached');
+    }
+    
+    
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,7 +227,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                      fontSize: 25
                  ),
                ),
-               onPressed: () {},
+               onPressed: _salvarDados,
              ),
            )
        ),
