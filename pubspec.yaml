@@ -35,7 +35,8 @@ dependencies:
   flutter_phoenix: "^1.0.0"
   flutter_spinkit: "^4.1.2"
   masked_text: ^0.0.6
-
+  flutter_localizations:
+    sdk: flutter
 dev_dependencies:
   flutter_test:
     sdk: flutter

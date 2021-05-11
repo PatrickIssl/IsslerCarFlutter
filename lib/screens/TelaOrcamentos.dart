@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:isslercar/main.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:masked_text/masked_text.dart';
-
+import 'package:intl/intl.dart';
 
 class TelaOrcamentos extends StatefulWidget {
   @override
@@ -15,6 +15,8 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
   TextEditingController _placaController = TextEditingController();
   TextEditingController _anoController = TextEditingController();
   TextEditingController _pecasController = TextEditingController();
+  TextEditingController _dataController = TextEditingController();
+  TextEditingController _corController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +103,61 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                        color: Colors.blue)),
                    maskedTextFieldController: _placaController,
                  )
+             ),
+             Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
+                 child: Row(children: [
+                   Expanded(
+                       flex: 3,
+                       child:
+                       TextField(
+                         decoration: InputDecoration(
+                             hintText: "Cor",
+                             labelText: "Cor",
+                             labelStyle: TextStyle(
+                                 fontSize: 20,
+                                 color: Colors.blue
+                             )
+                         ),
+                         onSubmitted: (String texto){
+
+                           print("valor digitado:" +  texto);
+
+                         },
+                         controller: _corController,
+                       )
+                   ),
+                   SizedBox(
+                     width: 20,
+                   ),
+                   Expanded(
+                       flex: 2,
+                       child:
+                       Padding(
+                         padding: EdgeInsets.only(top:20),
+                         child: MaskedTextField(
+                           mask: "xx/xx/xxxx",
+                           maxLength: 10,
+                           inputDecoration: new InputDecoration(
+                               hintText: "Data Entrada",
+                               labelText: "Entrada",
+                               labelStyle: TextStyle(fontSize: 20,
+                                   color: Colors.blue)),
+                           maskedTextFieldController: _dataController,
+                         ),
+                       )
+                   ),
+                   Expanded(
+                     flex: 1,
+                     child:  GestureDetector(
+                       child: Icon(Icons.calendar_today),
+                       onTap: (){
+                         String data = DateFormat("dd/MM/yyyy").format(DateTime.now());
+                         _dataController.text = data.toString();
+                          print(data);
+                         },
+                     ),
+                   ),
+                 ])
              ),
              Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
                  child:Column(
