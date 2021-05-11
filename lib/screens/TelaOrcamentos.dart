@@ -33,7 +33,19 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
           }
       );
     }on Exception catch(_){
-      print('never reached');
+        showDialog(context: context, builder: (context){
+          return AlertDialog(
+            title: Text("Cadastro de orçamento"),
+            content: Text("Favor Preencher todos os campos"),
+            actions: [
+              FlatButton(onPressed: () async {
+                await globals.auth.signOut();
+                Navigator.pop(context);
+                Navigator.pop(context);}
+                  , child: Text("OK"))
+            ],
+          );
+        });
     }
     
     
