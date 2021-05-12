@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:isslercar/main.dart';
+import 'package:isslercar/screens/TelaListarOrcamentos.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:mask_shifter/mask_shifter.dart';
@@ -18,7 +19,6 @@ class TelaEditarOrcamentos extends StatefulWidget {
 }
 
 class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
-
   //cliente
   TextEditingController _nomeController = TextEditingController();
   TextEditingController _numeroController = TextEditingController();
@@ -69,7 +69,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
 
     if (_variaveisVazias == "") {
       try {
-        globals.db.collection("orcamentos concluidos").add({
+        globals.db.collection("orcamentos avaliados").add({
           "numero_do_cliente": _numeroController.text.toString(),
           "endereco_do_cliente": _enderecoController.text.toString(),
           "nome_do_cliente": _nomeController.text.toString(),
@@ -80,20 +80,10 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
           "pecas": _pecasController.text.toString(),
           "data de entrada": _dataController.text.toString(),
           "cor_do_veiculo": _corController.text.toString(),
-          "status": "novo"
+          "status": "avaliado"
         });
-        globals.enviarSucesso(context, "Cadastro de orçamento concluido com sucesso");
-        _numeroController.text = "";
-        _enderecoController.text="";
-        _nomeController.text="";
-        _carroController.text="";
-        _placaController.text="";
-        _motorController.text="";
-        _anoController.text="";
-        _pecasController.text="";
-        _dataController.text="";
-        _corController.text="";
-
+        globals.enviarSucesso(context, "Valor Adicionado com sucesso");
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TelaListarOrcamentos()),);
       } on Exception catch (_) {
         print("erro");
         globals.enviarExcessao(context,
@@ -105,12 +95,26 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
     }
   }
 
-
   var _focusNodes = List.generate(9, (index) => FocusNode());
 
+  _setarDados(){
+    setState(() {
+      _nomeController.text = widget.doc.data['nome_do_cliente'];
+      _numeroController.text = widget.doc.data['numero_do_cliente'];
+      _enderecoController.text = widget.doc.data['endereco_do_cliente'];
+      _carroController.text = widget.doc.data['modelo'];
+      _placaController.text = widget.doc.data['placa'];
+      _motorController.text = widget.doc.data['motor'];
+      _anoController.text = widget.doc.data['ano'];
+      _pecasController.text = widget.doc.data['pecas'];
+      _dataController.text = widget.doc.data['data_de_entrada'];
+      _corController.text = widget.doc.data['cor_do_veiculo'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    _setarDados();
     return Scaffold(
       appBar: AppBar(
         leading: new IconButton(
