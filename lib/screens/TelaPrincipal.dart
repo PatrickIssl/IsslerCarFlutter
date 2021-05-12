@@ -53,8 +53,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:<Widget>[
-                          Icon(Icons.people,size: 100,),
-                          Text("Usuários", style: TextStyle(fontSize: 20, color: Colors.white),)
+                          Icon(Icons.list,size: 100,),
+                          Text("Orçamentos", style: TextStyle(fontSize: 20, color: Colors.white),)
                         ]
                       ),
                       decoration: BoxDecoration(
