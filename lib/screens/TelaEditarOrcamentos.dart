@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:isslercar/main.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
@@ -5,12 +7,17 @@ import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:mask_shifter/mask_shifter.dart';
 import 'package:intl/intl.dart';
 
-class TelaOrcamentos extends StatefulWidget {
+class TelaEditarOrcamentos extends StatefulWidget {
+
+  DocumentSnapshot doc;
+
+  TelaEditarOrcamentos(this.doc);
+
   @override
-  _TelaOrcamentosState createState() => _TelaOrcamentosState();
+  _TelaEditarOrcamentosState createState() => _TelaEditarOrcamentosState();
 }
 
-class _TelaOrcamentosState extends State<TelaOrcamentos> {
+class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
 
   //cliente
   TextEditingController _nomeController = TextEditingController();
@@ -62,7 +69,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
 
     if (_variaveisVazias == "") {
       try {
-        globals.db.collection("orcamentos").add({
+        globals.db.collection("orcamentos concluidos").add({
           "numero_do_cliente": _numeroController.text.toString(),
           "endereco_do_cliente": _enderecoController.text.toString(),
           "nome_do_cliente": _nomeController.text.toString(),
@@ -117,7 +124,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Orçamentos"),
+            Text("Editando ${widget.doc.data["modelo"]} placa ${widget.doc.data["placa"]}"),
           ],
         ),
       ),
@@ -151,9 +158,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                       labelText: "Nome",
                       labelStyle: TextStyle(fontSize: 20, color: Colors.blue)),
                   controller: _nomeController,
-                onSubmitted: (text){
-                  _focusNodes[0].requestFocus();
-                },
+                  onSubmitted: (text){
+                    _focusNodes[0].requestFocus();
+                  },
                 ),
               ),
               Padding(
@@ -207,7 +214,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                               hintText: "Modelo do veículo",
                               labelText: "Modelo",
                               labelStyle:
-                                  TextStyle(fontSize: 20, color: Colors.blue)),
+                              TextStyle(fontSize: 20, color: Colors.blue)),
                           onSubmitted: (text) {_focusNodes[3].requestFocus();},
                           controller: _carroController,
                         )),
@@ -262,7 +269,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                         hintText: "Informe a placa do veículo",
                         labelText: "Placa",
                         labelStyle:
-                            TextStyle(fontSize: 20, color: Colors.blue)),
+                        TextStyle(fontSize: 20, color: Colors.blue)),
                     controller: _placaController,
                   )),
               Padding(
@@ -276,7 +283,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                               hintText: "Cor",
                               labelText: "Cor",
                               labelStyle:
-                                  TextStyle(fontSize: 20, color: Colors.blue)),
+                              TextStyle(fontSize: 20, color: Colors.blue)),
                           onSubmitted: (text) {_focusNodes[7].requestFocus();},
                           controller: _corController,
                         )),
@@ -310,7 +317,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                         child: Icon(Icons.calendar_today),
                         onTap: () {
                           String data =
-                              DateFormat("dd/MM/yyyy").format(DateTime.now());
+                          DateFormat("dd/MM/yyyy").format(DateTime.now());
                           _dataController.text = data.toString();
                         },
                       ),
@@ -322,21 +329,21 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                     children: <Widget>[
                       Card(
                           child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextField(
-                          focusNode: _focusNodes[8],
-                          maxLines: 8,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: "Peças",
-                              hintText:
+                            padding: EdgeInsets.all(8.0),
+                            child: TextField(
+                              focusNode: _focusNodes[8],
+                              maxLines: 8,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  labelText: "Peças",
+                                  hintText:
                                   "Informe as Peças para realizar o orçamento",
-                              labelStyle:
+                                  labelStyle:
                                   TextStyle(fontSize: 20, color: Colors.blue)),
-                          onSubmitted: (text) {_salvarDados();},
-                          controller: _pecasController,
-                        ),
-                      ))
+                              onSubmitted: (text) {_salvarDados();},
+                              controller: _pecasController,
+                            ),
+                          ))
                     ],
                   )),
             ],

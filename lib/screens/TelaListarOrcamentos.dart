@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:isslercar/screens/TelaEditarOrcamentos.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 
 class TelaListarOrcamentos extends StatefulWidget {
@@ -56,8 +57,8 @@ class _TelaListarOrcamentosState extends State<TelaListarOrcamentos> {
                            actions: <Widget>[
                              FlatButton(
                                  onPressed: (){
-                                   print("Selecionado sim");
                                    Navigator.pop(context);
+                                   Navigator.push(context,MaterialPageRoute(builder: (context) => TelaEditarOrcamentos(doc)),);
                                  },
                                  child: Text("Correto")
                              ),
