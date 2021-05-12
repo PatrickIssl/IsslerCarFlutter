@@ -71,8 +71,21 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
           "ano": _anoController.text.toString(),
           "pecas": _pecasController.text.toString(),
           "data de entrada": _dataController.text.toString(),
-          "cor": _corController.text.toString()
+          "cor": _corController.text.toString(),
+          "status": "novo"
         });
+        globals.enviarSucesso(context, "Cadastro de orçamento concluido com sucesso");
+        _numeroController.text = "";
+        _enderecoController.text="";
+        _nomeController.text="";
+        _carroController.text="";
+        _placaController.text="";
+        _motorController.text="";
+        _anoController.text="";
+        _pecasController.text="";
+        _dataController.text="";
+        _corController.text="";
+
       } on Exception catch (_) {
         print("erro");
         globals.enviarExcessao(context,

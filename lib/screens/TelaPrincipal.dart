@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:isslercar/main.dart';
+import 'package:isslercar/screens/TelaListarOrcamentos.dart';
 import 'package:isslercar/screens/TelaOrcamentos.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:isslercar/screens/Login.dart';
@@ -64,7 +65,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                         ),
                       ),
                     ),
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => TelaListarOrcamentos()),);
+                    },
                   ),
                   GestureDetector(
                     child:

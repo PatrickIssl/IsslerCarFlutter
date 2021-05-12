@@ -72,6 +72,24 @@ enviarExcessao(context, text) {
       });
 }
 
+enviarSucesso(context, text) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Sucesso"),
+          content: Text(text),
+          actions: [
+            FlatButton(
+                onPressed: () async {
+                  Navigator.pop(context);
+                },
+                child: Text("OK"))
+          ],
+        );
+      });
+}
+
 class DrawerComun extends StatefulWidget {
   @override
   _DrawerComunState createState() => _DrawerComunState();
