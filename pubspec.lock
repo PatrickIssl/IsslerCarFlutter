@@ -168,13 +168,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
-  masked_text:
+  mask_shifter:
     dependency: "direct main"
     description:
-      name: masked_text
+      name: mask_shifter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.6"
+    version: "0.1.0"
   matcher:
     dependency: transitive
     description:

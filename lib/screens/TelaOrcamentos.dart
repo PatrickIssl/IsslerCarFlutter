@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:isslercar/main.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
-import 'package:masked_text/masked_text.dart';
+import 'package:mask_shifter/mask_shifter.dart';
 import 'package:intl/intl.dart';
 
 class TelaOrcamentos extends StatefulWidget {
@@ -23,8 +23,6 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
   TextEditingController _pecasController = TextEditingController();
   TextEditingController _dataController = TextEditingController();
   TextEditingController _corController = TextEditingController();
-
-
 
 
   _salvarDados(){
@@ -90,6 +88,10 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
   }
 
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,7 +129,6 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
              ),
              Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
                child: TextField(
-
                  decoration: InputDecoration(
                      hintText: "Nome do Cliente",
                      labelText: "Nome",
@@ -136,23 +137,30 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                          color: Colors.blue
                      )
                  ),
-                 onSubmitted: (String texto){
-                   print("valor digitado:" +  texto);
-                 },
                  controller: _nomeController,
+
+
                ),
              ),
              Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
-               child: MaskedTextField(
-                 mask: "(xx)xxxxx-xxxx",
+               child: TextField(
+                 inputFormatters: [
+                 MaskedTextInputFormatterShifter(
+                     maskONE: "(XX)XXXXX-XXXX",
+                     maskTWO: "(XX)XXXXX-XXXX"
+                 )
+                 ],
+                 onSubmitted: (text){
+
+                   },
                  maxLength: 14,
                  keyboardType: TextInputType.phone,
-                 inputDecoration: new InputDecoration(
+                 decoration: new InputDecoration(
                      hintText: "Número do Cliente",
                      labelText: "Número",
                      labelStyle: TextStyle(fontSize: 20,
                          color: Colors.blue)),
-                 maskedTextFieldController: _numeroController,
+                 controller: _numeroController,
                ),
              ),
              Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
@@ -211,16 +219,21 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                  child:
                  Padding(
                    padding: EdgeInsets.only(top:20),
-                   child: MaskedTextField(
-                     mask: "xxxx/xxxx",
+                   child: TextField(
+                     inputFormatters: [
+                       MaskedTextInputFormatterShifter(
+                           maskONE: "XXXX/XXXX",
+                           maskTWO: "XXXX/XXXX"
+                       )
+                     ],
                      keyboardType: TextInputType.datetime,
                      maxLength: 9,
-                     inputDecoration: new InputDecoration(
+                     decoration: new InputDecoration(
                          hintText: "Ano Veículo",
                          labelText: "Ano",
                          labelStyle: TextStyle(fontSize: 20,
                              color: Colors.blue)),
-                     maskedTextFieldController: _anoController,
+                     controller: _anoController,
                    ),
                  )
                )
@@ -246,15 +259,18 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
              ),
              Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
                  child:
-                 MaskedTextField(
-                   mask: "xxx-xxxx",
+                 TextField(
+                   inputFormatters: [ MaskedTextInputFormatterShifter(
+                       maskONE: "XXX-XXXX",
+                       maskTWO: "XXX-XXXX"
+                   )],
                    maxLength: 8,
-                   inputDecoration: new InputDecoration(
+                   decoration: new InputDecoration(
                        hintText: "Informe a placa do veículo",
                        labelText: "Placa",
                        labelStyle: TextStyle(fontSize: 20,
                        color: Colors.blue)),
-                   maskedTextFieldController: _placaController,
+                   controller: _placaController,
                  )
              ),
              Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
@@ -287,16 +303,19 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                        child:
                        Padding(
                          padding: EdgeInsets.only(top:20),
-                         child: MaskedTextField(
-                           mask: "xx/xx/xxxx",
+                         child: TextField(
+                           inputFormatters: [ MaskedTextInputFormatterShifter(
+                               maskONE: "XX/XX/XXXX",
+                               maskTWO: "XX/XX/XXXX"
+                           )],
                            keyboardType: TextInputType.datetime,
                            maxLength: 10,
-                           inputDecoration: new InputDecoration(
+                           decoration: new InputDecoration(
                                hintText: "Data Entrada",
                                labelText: "Entrada",
                                labelStyle: TextStyle(fontSize: 20,
                                    color: Colors.blue)),
-                           maskedTextFieldController: _dataController,
+                           controller: _dataController,
                          ),
                        )
                    ),
@@ -338,6 +357,8 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
         ),
 
       ),
+
+
       drawer: globals.DrawerComun(),
       bottomNavigationBar:
       GestureDetector(
