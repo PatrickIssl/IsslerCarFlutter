@@ -9,74 +9,36 @@ class TelaListarOrcamentos extends StatefulWidget {
 
 class _TelaListarOrcamentosState extends State<TelaListarOrcamentos> {
 
-  List _itens = [];
-
-  void _carregarItens() async{
-
-    globals.db.collection("orcamentos").snapshots().listen((snapshot) {
-      for(DocumentSnapshot item in snapshot.documents){
-        _itens.add(item.data);
-      }
-    });
-    setState(() {
-      print("ola");
-    });
-
-  }
-
   @override
   Widget build(BuildContext context) {
+   return Scaffold(
+     body: StreamBuilder(
+       stream: Firestore.instance.collection('orcamentos').snapshots(),
+       builder: (BuildContext context, AsyncSnapshot snapshot){
 
-    _carregarItens();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Lista"),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: ListView.builder(
-            itemCount: _itens.length,
-            itemBuilder: (context, indice){
-              return ListTile(
-                title: Text( _itens[indice]["modelo"]),
-                subtitle: Text(_itens[indice]["nome_do_cliente"]),
-                onTap: (){
-                  showDialog(
-                      context: context,
-                      builder: (context){
-                        return AlertDialog(
-                          title: Text(_itens[indice]["modelo"]),
-                          titlePadding: EdgeInsets.all(25),
-                          titleTextStyle: TextStyle(
-                              fontSize: 20,
-                              color: Colors.orange
-                          ),
-                          content: Text(_itens[indice]["placa"]),
-                          actions: <Widget>[
-                            FlatButton(
-                                onPressed: (){
-                                  print("Selecionado sim");
-                                  Navigator.pop(context);
-                                },
-                                child: Text("Sim")
-                            ),
-                            FlatButton(
-                                onPressed: (){
-                                  print("Selecionado não");
-                                  Navigator.pop(context);
-                                },
-                                child: Text("não")
-                            ),
-                          ],
-                          contentPadding: EdgeInsets.all(20),
-                        );
-                      }
-                  );
-                },
-              );
-            }
-        ),
-      ),
-    );
+         if(snapshot.hasError){
+           return Text('Error: ${snapshot.error}');
+         }
+
+         switch(snapshot.connectionState){
+           case ConnectionState.waiting:
+             return LinearProgressIndicator();
+             break;
+           default:
+             return Center(
+               child: ListView(
+                 children: snapshot.data.documents.map<Widget>((DocumentSnapshot doc){
+                   return ListTile(
+                     leading:  Icon(Icons.book, size: 52,),
+                     title: Text("Nome do cliente: ${doc.data['nome_do_cliente']} | Número : ${doc.data['numero_do_cliente']}"),
+                     subtitle: Text("Carro: ${doc.data['modelo']} | placa : ${doc.data['placa']} | Cor: ${doc.data['cor_do_veiculo']}"),
+                   );
+                 }).toList(),
+               ),
+             );
+         }
+       },
+     ),
+   );
   }
 }
