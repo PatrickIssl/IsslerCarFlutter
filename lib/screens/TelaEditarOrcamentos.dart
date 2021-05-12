@@ -156,7 +156,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
               Padding(
                 padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextField(
-                  autofocus: true,
+                  enabled: false,
                   decoration: InputDecoration(
                       hintText: "Nome do Cliente",
                       labelText: "Nome",
@@ -170,6 +170,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
               Padding(
                 padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextField(
+                  enabled: false,
                   focusNode: _focusNodes[0],
                   inputFormatters: [
                     MaskedTextInputFormatterShifter(
@@ -188,6 +189,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
               Padding(
                 padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextField(
+                  enabled: false,
                   focusNode: _focusNodes[1],
                   decoration: InputDecoration(
                       hintText: "Endereço do Cliente",
@@ -213,6 +215,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                     Expanded(
                         flex: 3,
                         child: TextField(
+                          enabled: false,
                           focusNode: _focusNodes[2],
                           decoration: InputDecoration(
                               hintText: "Modelo do veículo",
@@ -230,6 +233,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                         child: Padding(
                           padding: EdgeInsets.only(top: 20),
                           child: TextField(
+                            enabled: false,
                             focusNode: _focusNodes[3],
                             inputFormatters: [
                               MaskedTextInputFormatterShifter(
@@ -250,6 +254,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
               Padding(
                 padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextField(
+                  enabled: false,
                   focusNode: _focusNodes[4],
                   decoration: InputDecoration(
                       hintText: "Motor",
@@ -262,6 +267,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
               Padding(
                   padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                   child: TextField(
+                    enabled: false,
                     focusNode: _focusNodes[5],
                     inputFormatters: [
                       MaskedTextInputFormatterShifter(
@@ -282,6 +288,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                     Expanded(
                         flex: 3,
                         child: TextField(
+                          enabled: false,
                           focusNode: _focusNodes[6],
                           decoration: InputDecoration(
                               hintText: "Cor",
@@ -299,6 +306,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                         child: Padding(
                           padding: EdgeInsets.only(top: 20),
                           child: TextField(
+                            enabled: false,
                             focusNode: _focusNodes[7],
                             inputFormatters: [
                               MaskedTextInputFormatterShifter(
@@ -335,6 +343,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
                             child: TextField(
+                              enabled: false,
                               focusNode: _focusNodes[8],
                               maxLines: 8,
                               decoration: InputDecoration(
