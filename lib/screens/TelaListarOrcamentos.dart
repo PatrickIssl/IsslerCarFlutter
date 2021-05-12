@@ -12,17 +12,14 @@ class _TelaListarOrcamentosState extends State<TelaListarOrcamentos> {
   List _itens = [];
 
   void _carregarItens() async{
-    // for(DocumentSnapshot item in querySnapshot.documents){
-    //   _itens.add(item.data);
-    //   print(item.toString());
-    // }
 
     globals.db.collection("orcamentos").snapshots().listen((snapshot) {
-       setState(() {
-         for(DocumentSnapshot item in snapshot.documents){
-           _itens.add(item.data);
-         }
-       });
+      for(DocumentSnapshot item in snapshot.documents){
+        _itens.add(item.data);
+      }
+    });
+    setState(() {
+      print("ola");
     });
 
   }
@@ -42,19 +39,19 @@ class _TelaListarOrcamentosState extends State<TelaListarOrcamentos> {
             itemBuilder: (context, indice){
               return ListTile(
                 title: Text( _itens[indice]["modelo"]),
-                subtitle: Text(_itens[indice]["descricao"]),
+                subtitle: Text(_itens[indice]["nome_do_cliente"]),
                 onTap: (){
                   showDialog(
                       context: context,
                       builder: (context){
                         return AlertDialog(
-                          title: Text(_itens[indice]["titulo"]),
+                          title: Text(_itens[indice]["modelo"]),
                           titlePadding: EdgeInsets.all(25),
                           titleTextStyle: TextStyle(
                               fontSize: 20,
                               color: Colors.orange
                           ),
-                          content: Text(_itens[indice]["descricao"]),
+                          content: Text(_itens[indice]["placa"]),
                           actions: <Widget>[
                             FlatButton(
                                 onPressed: (){
