@@ -10,28 +10,27 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   TextEditingController _controllerLogin = TextEditingController();
   TextEditingController _controllerSenha = TextEditingController();
   bool _showPassword = false;
 
-  _realizarLogin() async{
-
-    if(_controllerSenha.text != "" && _controllerSenha.text != ""){
-      globals.auth.signInWithEmailAndPassword(
-          email: _controllerLogin.text,
-          password: _controllerSenha.text
-      ).then((firebaseUser){
+  _realizarLogin() async {
+    if (_controllerSenha.text != "" && _controllerSenha.text != "") {
+      globals.auth
+          .signInWithEmailAndPassword(
+              email: _controllerLogin.text, password: _controllerSenha.text)
+          .then((firebaseUser) {
         globals.usuarioAtual = firebaseUser;
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TelaPrincipal()),);
-      }).catchError((erro){
-        print(" erro ao logar : "+ erro.toString());
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => TelaPrincipal()),
+        );
+      }).catchError((erro) {
+        print(" erro ao logar : " + erro.toString());
       });
-
-    }else{
+    } else {
       print("E-mail ou senha está vazio");
     }
-
   }
 
   @override
@@ -50,20 +49,24 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Padding(padding: EdgeInsets.only(top: 20),
-                  child: Image.asset("assets/imagens/logo.png")
+              Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Image.asset("assets/imagens/logo.png")),
+              Padding(
+                padding: EdgeInsets.only(top: 75),
+                child: Text(
+                  globals.bemVindo,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
               ),
-              Padding(padding: EdgeInsets.only(top: 75),
-                child:    Text(globals.bemVindo,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                ),),
-              ),
-              Padding(padding: EdgeInsets.only(top: 25),
-                child:Theme(
+              Padding(
+                padding: EdgeInsets.only(top: 25),
+                child: Theme(
                   data: Theme.of(context).copyWith(accentColor: Colors.blue),
-                  child:TextField(
+                  child: TextField(
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: "E-mail",
@@ -87,12 +90,12 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-
-              Padding(padding: EdgeInsets.only(top: 20),
-                child:Theme(
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Theme(
                   data: Theme.of(context).copyWith(accentColor: Colors.blue),
                   child: TextField(
-                    obscureText: _showPassword == false? true :false,
+                    obscureText: _showPassword == false ? true : false,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: "Senha",
@@ -100,8 +103,13 @@ class _LoginState extends State<Login> {
                         borderSide: BorderSide(color: Colors.black),
                       ),
                       suffixIcon: GestureDetector(
-                        child: Icon(_showPassword == false? Icons.visibility_off: Icons.visibility, color: Colors.black,),
-                        onTap: (){
+                        child: Icon(
+                          _showPassword == false
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.black,
+                        ),
+                        onTap: () {
                           setState(() {
                             _showPassword = !_showPassword;
                           });
@@ -123,43 +131,47 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-
-              Padding(padding: EdgeInsets.only(top: 10),
-                  child:Row(
+              Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Row(
                     children: <Widget>[
                       GestureDetector(
-                        onTap:(){
+                        onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => RecuperaSenha()),
+                            MaterialPageRoute(
+                                builder: (context) => RecuperaSenha()),
                           );
                         },
-                        child:Text("Esqueceu sua senha?",
+                        child: Text(
+                          "Esqueceu sua senha?",
                           style: TextStyle(
                             color: Colors.black,
                           ),
                         ),
                       ),
                     ],
-                  )
-              ),
-              Padding(padding: EdgeInsets.only(top: 50),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(top: 50),
                   child: GestureDetector(
                     onTap: _realizarLogin,
-                    child:Image.asset("assets/imagens/flecha.png"),
-                  )
-              ),
-              Padding(padding: EdgeInsets.only(top: 25),
-                  child:Column(
+                    child: Image.asset("assets/imagens/flecha.png"),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(top: 25),
+                  child: Column(
                     children: <Widget>[
                       GestureDetector(
-                        onTap:(){
+                        onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CriarUsuario()),
+                            MaterialPageRoute(
+                                builder: (context) => CriarUsuario()),
                           );
                         },
-                        child:Text("Cadastre-se",
+                        child: Text(
+                          "Cadastre-se",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 20,
@@ -168,15 +180,13 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ],
-                  )
-              ),
-              Padding(padding: EdgeInsets.only(top: 75),
-                  child:Text(globals.version)
-              ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(top: 75),
+                  child: Text(globals.version)),
             ],
           ),
         ),
-
       ),
     );
   }

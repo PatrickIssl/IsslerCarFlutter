@@ -9,48 +9,47 @@ class CriarUsuario extends StatefulWidget {
 }
 
 class _CriarUsuarioState extends State<CriarUsuario> {
-
   bool _showPassword = false;
 
   TextEditingController _controllerLogin = TextEditingController();
   TextEditingController _controllerSenha = TextEditingController();
   TextEditingController _controllerEmail = TextEditingController();
 
-  _criarUsuario() async{
-
-
-    if(_controllerSenha.text != "" && _controllerSenha.text != "" && _controllerEmail.text != ""){
-
-    await globals.auth.createUserWithEmailAndPassword(
-              email: _controllerLogin.text,
-              password: _controllerSenha.text,
-      ).then((firebaseUser) async{
-
-
-        showDialog(context: context, builder: (context){
-          return AlertDialog(
-            title: Text("Criação de usuario"),
-            content: Text("O usuário com E-mail ${firebaseUser.email} foi criado com sucesso"),
-            actions: [
-              FlatButton(onPressed: () async {
-                await globals.auth.signOut();
-                Navigator.pop(context);
-                Navigator.pop(context);}
-                , child: Text("OK"))
-            ],
-          );
-        });
-
-      }).catchError((erro){
-        print(" erro ao logar : "+ erro.toString());
+  _criarUsuario() async {
+    if (_controllerSenha.text != "" &&
+        _controllerSenha.text != "" &&
+        _controllerEmail.text != "") {
+      await globals.auth
+          .createUserWithEmailAndPassword(
+        email: _controllerLogin.text,
+        password: _controllerSenha.text,
+      )
+          .then((firebaseUser) async {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Criação de usuario"),
+                content: Text(
+                    "O usuário com E-mail ${firebaseUser.email} foi criado com sucesso"),
+                actions: [
+                  FlatButton(
+                      onPressed: () async {
+                        await globals.auth.signOut();
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      child: Text("OK"))
+                ],
+              );
+            });
+      }).catchError((erro) {
+        print(" erro ao logar : " + erro.toString());
       });
-
-    }else{
+    } else {
       print("E-mail, senha ou nome está vazio");
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -72,16 +71,18 @@ class _CriarUsuarioState extends State<CriarUsuario> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Padding(padding: EdgeInsets.only(top: 80),
-                  child: Image.asset("assets/imagens/logo.png")
+              Padding(
+                  padding: EdgeInsets.only(top: 80),
+                  child: Image.asset("assets/imagens/logo.png")),
+              Padding(
+                padding: EdgeInsets.only(top: 75),
+                child: Text(globals.criarUsuario),
               ),
-              Padding(padding: EdgeInsets.only(top: 75),
-                child:    Text(globals.criarUsuario),
-              ),
-              Padding(padding: EdgeInsets.only(top: 50),
-                child:Theme(
+              Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Theme(
                   data: Theme.of(context).copyWith(accentColor: Colors.blue),
-                  child:Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Padding(padding: EdgeInsets.all(5)),
@@ -89,7 +90,6 @@ class _CriarUsuarioState extends State<CriarUsuario> {
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           labelText: "Nome",
-
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                           ),
@@ -133,7 +133,7 @@ class _CriarUsuarioState extends State<CriarUsuario> {
                       ),
                       Padding(padding: EdgeInsets.all(5)),
                       TextField(
-                        obscureText: _showPassword == false? true :false,
+                        obscureText: _showPassword == false ? true : false,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                           labelText: "Senha",
@@ -141,8 +141,13 @@ class _CriarUsuarioState extends State<CriarUsuario> {
                             borderSide: BorderSide(color: Colors.black),
                           ),
                           suffixIcon: GestureDetector(
-                            child: Icon(_showPassword == false? Icons.visibility_off: Icons.visibility, color: Colors.black,),
-                            onTap: (){
+                            child: Icon(
+                              _showPassword == false
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.black,
+                            ),
+                            onTap: () {
                               setState(() {
                                 _showPassword = !_showPassword;
                               });
@@ -166,19 +171,18 @@ class _CriarUsuarioState extends State<CriarUsuario> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top: 75),
+              Padding(
+                  padding: EdgeInsets.only(top: 75),
                   child: GestureDetector(
                     onTap: _criarUsuario,
-                    child:Image.asset("assets/imagens/flecha.png"),
-                  )
-              ),
-              Padding(padding: EdgeInsets.only(top: 75),
-                  child:Text(globals.version)
-              ),
+                    child: Image.asset("assets/imagens/flecha.png"),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(top: 75),
+                  child: Text(globals.version)),
             ],
           ),
         ),
-
       ),
     );
   }

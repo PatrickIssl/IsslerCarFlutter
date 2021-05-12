@@ -8,23 +8,20 @@ class RecuperaSenha extends StatefulWidget {
 }
 
 class _RecuperaSenhaState extends State<RecuperaSenha> {
-
-
   TextEditingController _controllerLogin = TextEditingController();
 
-  _enviarEmail() async{
-
-    if(_controllerLogin.text != ""){
-      globals.auth.sendPasswordResetEmail(email: _controllerLogin.text).catchError((erro){
-        print(" erro ao logar : "+ erro.toString());
+  _enviarEmail() async {
+    if (_controllerLogin.text != "") {
+      globals.auth
+          .sendPasswordResetEmail(email: _controllerLogin.text)
+          .catchError((erro) {
+        print(" erro ao logar : " + erro.toString());
       });
       Navigator.pop(context);
-    }else{
+    } else {
       print("E-mail está vazio");
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +40,18 @@ class _RecuperaSenhaState extends State<RecuperaSenha> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Padding(padding: EdgeInsets.only(top: 80),
-                  child: Image.asset("assets/imagens/logo.png")
+              Padding(
+                  padding: EdgeInsets.only(top: 80),
+                  child: Image.asset("assets/imagens/logo.png")),
+              Padding(
+                padding: EdgeInsets.only(top: 75),
+                child: Text(globals.recuperarSenha),
               ),
-              Padding(padding: EdgeInsets.only(top: 75),
-                child:    Text(globals.recuperarSenha),
-              ),
-              Padding(padding: EdgeInsets.only(top: 50),
-                child:Theme(
+              Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Theme(
                   data: Theme.of(context).copyWith(accentColor: Colors.blue),
-                  child:TextField(
+                  child: TextField(
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: "E-mail",
@@ -76,19 +75,18 @@ class _RecuperaSenhaState extends State<RecuperaSenha> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top: 75),
+              Padding(
+                  padding: EdgeInsets.only(top: 75),
                   child: GestureDetector(
                     onTap: _enviarEmail,
-                    child:Image.asset("assets/imagens/flecha.png"),
-                  )
-              ),
-              Padding(padding: EdgeInsets.only(top: 75),
-                  child:Text(globals.version)
-              ),
+                    child: Image.asset("assets/imagens/flecha.png"),
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(top: 75),
+                  child: Text(globals.version)),
             ],
           ),
         ),
-
       ),
     );
   }

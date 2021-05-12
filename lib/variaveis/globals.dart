@@ -1,11 +1,11 @@
 library my_prj.globals;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:isslercar/screens/Login.dart';
 
-
-var colorsFundo= [
+var colorsFundo = [
   Color(0xFFD2D2D2),
   Color(0xFFFFFFFF),
 ];
@@ -39,7 +39,6 @@ var entrou = 0;
 //usuario logado
 FirebaseUser usuarioAtual;
 
-
 //versão
 var version = "Version 1.0.0 powered by Patrick Issler";
 
@@ -55,40 +54,38 @@ var recuperarSenha = "Informe o seu E-mail para recuperação de senha";
 
 var criarUsuario = "Informe os dados do usuário a ser cadastrado";
 
-
-
-
-
-enviarExcessao(context, text){
-  showDialog(context: context, builder: (context) {
-    return AlertDialog(
-      title: Text("Erro"),
-      content: Text(text),
-      actions: [
-        FlatButton(onPressed: () async {
-          Navigator.pop(context);
-        }
-            , child: Text("OK"))
-      ],
-    );
-  });
+enviarExcessao(context, text) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Erro"),
+          content: Text(text),
+          actions: [
+            FlatButton(
+                onPressed: () async {
+                  Navigator.pop(context);
+                },
+                child: Text("OK"))
+          ],
+        );
+      });
 }
-
-
 
 class DrawerComun extends StatefulWidget {
   @override
   _DrawerComunState createState() => _DrawerComunState();
 }
 
-
 class _DrawerComunState extends State<DrawerComun> {
-
   void _voltarTelaLogin() async {
-    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Login()),);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Login()),
+    );
   }
 
-  _deslogar() async{
+  _deslogar() async {
     auth.signOut();
     _voltarTelaLogin();
     print("teste");
@@ -100,12 +97,16 @@ class _DrawerComunState extends State<DrawerComun> {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            child:Column(
+            child: Column(
               children: [
-                CircleAvatar(child: Text('${usuarioAtual.email[0].toUpperCase()}', style: TextStyle(fontSize: 50),),
+                CircleAvatar(
+                  child: Text(
+                    '${usuarioAtual.email[0].toUpperCase()}',
+                    style: TextStyle(fontSize: 50),
+                  ),
                   minRadius: 50,
                 ),
-                Padding(padding: EdgeInsets.only(top:10)),
+                Padding(padding: EdgeInsets.only(top: 10)),
                 Text("Usuário: ${usuarioAtual.email}")
               ],
             ),
@@ -115,10 +116,7 @@ class _DrawerComunState extends State<DrawerComun> {
               title: Text("Sair"),
               subtitle: Text("Encerrar Sessão"),
               trailing: Icon(Icons.arrow_forward),
-              onTap:_deslogar
-
-          )
-
+              onTap: _deslogar)
         ],
       ),
     );

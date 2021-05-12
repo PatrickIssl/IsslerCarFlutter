@@ -5,19 +5,16 @@ import 'package:isslercar/screens/SplashScreen.dart';
 import 'package:isslercar/screens/TelaOrcamentos.dart';
 import 'variaveis/globals.dart' as globals;
 
-
 import 'package:flutter/material.dart';
 
-void main() async{
-    WidgetsFlutterBinding.ensureInitialized();
-    runApp(
-      RestartWidget(
-        child: MaterialApp(
-            home: SplashScreen()
-        ),
-      ),
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    RestartWidget(
+      child: MaterialApp(home: SplashScreen()),
+    ),
+  );
+}
 
 class RestartWidget extends StatefulWidget {
   RestartWidget({this.child});

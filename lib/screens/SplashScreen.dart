@@ -6,41 +6,44 @@ import 'package:isslercar/screens/Login.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 
-
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-
 class _SplashScreenState extends State<SplashScreen> {
-
-  _pegarUsuario() async{
+  _pegarUsuario() async {
     globals.usuarioAtual = await globals.auth.currentUser();
   }
 
   Timer _timer;
   int _start = 2;
   int _enviou = 0;
+
   void startTimer() {
     _pegarUsuario();
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-          (Timer timer) async {
+      (Timer timer) async {
         if (_start == 0) {
           _start == 2;
           timer.cancel();
-          if(globals.usuarioAtual != null){
-            if(globals.entrou == 0 ){
+          if (globals.usuarioAtual != null) {
+            if (globals.entrou == 0) {
               globals.entrou = 1;
-              await Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TelaPrincipal()),);
+              await Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => TelaPrincipal()),
+              );
             }
-          }else{
-            if(globals.entrou == 0){
+          } else {
+            if (globals.entrou == 0) {
               globals.entrou = 1;
-              await Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => Login()),);
+              await Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
             }
           }
         } else {
@@ -68,14 +71,16 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.only(top: 200)),
-              GradientText(globals.titulo,
+              GradientText(
+                globals.titulo,
                 gradient: LinearGradient(
                   colors: globals.colorTitulo,
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
               ),
-              GradientText(globals.subtitulo,
+              GradientText(
+                globals.subtitulo,
                 gradient: LinearGradient(
                   colors: globals.colorTitulo,
                   begin: Alignment.topCenter,
@@ -96,7 +101,10 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
       ),
-      onTap:(){globals.entrou =0; startTimer();},
+      onTap: () {
+        globals.entrou = 0;
+        startTimer();
+      },
     );
   }
 }
