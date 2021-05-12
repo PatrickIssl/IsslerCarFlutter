@@ -28,40 +28,65 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
 
 
   _salvarDados(){
-    print("ola");
-    try {
-      globals.db.collection("orcamentos").add(
-          {
-            "numero_do_cliente": _numeroController.text.toString(),
-            "endereco_do_cliente": _enderecoController.text.toString(),
-            "nome_do_cliente": _nomeController.text.toString(),
-            "modelo": _carroController.text.toString(),
-            "placa": _placaController.text.toString(),
-            "motor": _motorController.text.toString(),
-            "ano": _anoController.text.toString(),
-            "pecas": _pecasController.text.toString(),
-            "data de entrada": _dataController.text.toString(),
-            "cor": _corController.text.toString()
-          }
-      );
-    }on Exception catch(_) {
-      print("erro");
-      showDialog(context: context, builder: (context) {
-        return AlertDialog(
-          title: Text("Cadastro de orçamento"),
-          content: Text("Favor Preencher todos os campos"),
-          actions: [
-            FlatButton(onPressed: () async {
-              await globals.auth.signOut();
-              Navigator.pop(context);
-              Navigator.pop(context);
-            }
-                , child: Text("OK"))
-          ],
-        );
-      });
+    var _variaveisVazias = "";
+    if(_nomeController.text == ""){
+      _variaveisVazias = _variaveisVazias + "Nome / ";
+    }
+    if(_numeroController.text == ""){
+      _variaveisVazias = _variaveisVazias + "Número / ";
+    }
+    if(_enderecoController.text == ""){
+      _variaveisVazias = _variaveisVazias + "Endereço / ";
+    }
+    if(_carroController.text == ""){
+      _variaveisVazias = _variaveisVazias + "Modelo / ";
+    }
+    if(_anoController.text == ""){
+      _variaveisVazias = _variaveisVazias + "Ano / ";
+    }
+    if(_motorController.text == ""){
+      _variaveisVazias = _variaveisVazias + "Motor / ";
+    }
+    if(_placaController.text == ""){
+      _variaveisVazias = _variaveisVazias + "Placa / ";
+    }
+    if(_corController.text == ""){
+      _variaveisVazias = _variaveisVazias + "Cor / ";
+    }
+   if(_dataController.text == ""){
+     String data = DateFormat("dd/MM/yyyy").format(DateTime.now());
+     _dataController.text = data.toString();
+   }
+    if(_pecasController.text == ""){
+       _variaveisVazias = _variaveisVazias + "Peças / ";
     }
 
+
+    if(_variaveisVazias == "") {
+      try {
+        globals.db.collection("orcamentos").add(
+            {
+              "numero_do_cliente": _numeroController.text.toString(),
+              "endereco_do_cliente": _enderecoController.text.toString(),
+              "nome_do_cliente": _nomeController.text.toString(),
+              "modelo": _carroController.text.toString(),
+              "placa": _placaController.text.toString(),
+              "motor": _motorController.text.toString(),
+              "ano": _anoController.text.toString(),
+              "pecas": _pecasController.text.toString(),
+              "data de entrada": _dataController.text.toString(),
+              "cor": _corController.text.toString()
+            }
+        );
+      } on Exception catch (_) {
+        print("erro");
+        globals.enviarExcessao(context,
+            "Favor Bater um print da tela e enviar para o desenvolvedor contato (45)99970-2182 , erro: ${_
+                .toString()}");
+      }
+    }else{
+      globals.enviarExcessao(context, "Favor Preencher os campos: ${_variaveisVazias}");
+    }
   }
 
 
@@ -102,6 +127,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
              ),
              Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
                child: TextField(
+
                  decoration: InputDecoration(
                      hintText: "Nome do Cliente",
                      labelText: "Nome",
@@ -111,29 +137,22 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                      )
                  ),
                  onSubmitted: (String texto){
-
                    print("valor digitado:" +  texto);
-
                  },
                  controller: _nomeController,
                ),
              ),
              Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
-               child: TextField(
-                 decoration: InputDecoration(
-                     hintText: "Número do cliente",
+               child: MaskedTextField(
+                 mask: "(xx)xxxxx-xxxx",
+                 maxLength: 14,
+                 keyboardType: TextInputType.phone,
+                 inputDecoration: new InputDecoration(
+                     hintText: "Número do Cliente",
                      labelText: "Número",
-                     labelStyle: TextStyle(
-                         fontSize: 20,
-                         color: Colors.blue
-                     )
-                 ),
-                 onSubmitted: (String texto){
-
-                   print("valor digitado:" +  texto);
-
-                 },
-                 controller: _numeroController,
+                     labelStyle: TextStyle(fontSize: 20,
+                         color: Colors.blue)),
+                 maskedTextFieldController: _numeroController,
                ),
              ),
              Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
@@ -194,6 +213,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                    padding: EdgeInsets.only(top:20),
                    child: MaskedTextField(
                      mask: "xxxx/xxxx",
+                     keyboardType: TextInputType.datetime,
                      maxLength: 9,
                      inputDecoration: new InputDecoration(
                          hintText: "Ano Veículo",
@@ -269,6 +289,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                          padding: EdgeInsets.only(top:20),
                          child: MaskedTextField(
                            mask: "xx/xx/xxxx",
+                           keyboardType: TextInputType.datetime,
                            maxLength: 10,
                            inputDecoration: new InputDecoration(
                                hintText: "Data Entrada",
@@ -286,7 +307,6 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                        onTap: (){
                          String data = DateFormat("dd/MM/yyyy").format(DateTime.now());
                          _dataController.text = data.toString();
-                          print(data);
                          },
                      ),
                    ),
