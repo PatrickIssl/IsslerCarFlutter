@@ -152,7 +152,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                   ],
                   onSubmitted: (text) {_focusNodes[1].requestFocus();},
                   maxLength: 14,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.datetime,
                   decoration: new InputDecoration(
                       hintText: "Número do Cliente",
                       labelText: "Número",
