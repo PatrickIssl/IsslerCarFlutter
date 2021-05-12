@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:isslercar/main.dart';
+import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:masked_text/masked_text.dart';
 import 'package:intl/intl.dart';
@@ -10,45 +11,57 @@ class TelaOrcamentos extends StatefulWidget {
 }
 
 class _TelaOrcamentosState extends State<TelaOrcamentos> {
-
+  //cliente
+  TextEditingController _nomeController = TextEditingController();
+  TextEditingController _numeroController = TextEditingController();
+  TextEditingController _enderecoController = TextEditingController();
+  //veiculo
   TextEditingController _carroController = TextEditingController();
   TextEditingController _placaController = TextEditingController();
+  TextEditingController _motorController = TextEditingController();
   TextEditingController _anoController = TextEditingController();
   TextEditingController _pecasController = TextEditingController();
   TextEditingController _dataController = TextEditingController();
   TextEditingController _corController = TextEditingController();
 
 
-  _salvarDados(){
 
+
+  _salvarDados(){
+    print("ola");
     try {
       globals.db.collection("orcamentos").add(
           {
+            "numero_do_cliente": _numeroController.text.toString(),
+            "endereco_do_cliente": _enderecoController.text.toString(),
+            "nome_do_cliente": _nomeController.text.toString(),
             "modelo": _carroController.text.toString(),
             "placa": _placaController.text.toString(),
+            "motor": _motorController.text.toString(),
             "ano": _anoController.text.toString(),
             "pecas": _pecasController.text.toString(),
             "data de entrada": _dataController.text.toString(),
             "cor": _corController.text.toString()
           }
       );
-    }on Exception catch(_){
-        showDialog(context: context, builder: (context){
-          return AlertDialog(
-            title: Text("Cadastro de orçamento"),
-            content: Text("Favor Preencher todos os campos"),
-            actions: [
-              FlatButton(onPressed: () async {
-                await globals.auth.signOut();
-                Navigator.pop(context);
-                Navigator.pop(context);}
-                  , child: Text("OK"))
-            ],
-          );
-        });
+    }on Exception catch(_) {
+      print("erro");
+      showDialog(context: context, builder: (context) {
+        return AlertDialog(
+          title: Text("Cadastro de orçamento"),
+          content: Text("Favor Preencher todos os campos"),
+          actions: [
+            FlatButton(onPressed: () async {
+              await globals.auth.signOut();
+              Navigator.pop(context);
+              Navigator.pop(context);
+            }
+                , child: Text("OK"))
+          ],
+        );
+      });
     }
-    
-    
+
   }
 
 
@@ -80,8 +93,76 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
         child: SingleChildScrollView(
           child: Column(
            children: <Widget>[
+             Padding(padding: EdgeInsets.only(top: 15),
+               child:Text("DADOS DO CLIENTE",
+                 style: TextStyle(
+                   fontSize: 20,
+                   decoration: TextDecoration.underline,
+                 ),),
+             ),
+             Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
+               child: TextField(
+                 decoration: InputDecoration(
+                     hintText: "Nome do Cliente",
+                     labelText: "Nome",
+                     labelStyle: TextStyle(
+                         fontSize: 20,
+                         color: Colors.blue
+                     )
+                 ),
+                 onSubmitted: (String texto){
 
-          Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
+                   print("valor digitado:" +  texto);
+
+                 },
+                 controller: _nomeController,
+               ),
+             ),
+             Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
+               child: TextField(
+                 decoration: InputDecoration(
+                     hintText: "Número do cliente",
+                     labelText: "Número",
+                     labelStyle: TextStyle(
+                         fontSize: 20,
+                         color: Colors.blue
+                     )
+                 ),
+                 onSubmitted: (String texto){
+
+                   print("valor digitado:" +  texto);
+
+                 },
+                 controller: _numeroController,
+               ),
+             ),
+             Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
+               child: TextField(
+                 decoration: InputDecoration(
+                     hintText: "Endereço do Cliente",
+                     labelText: "Endereço",
+                     labelStyle: TextStyle(
+                         fontSize: 20,
+                         color: Colors.blue
+                     )
+                 ),
+                 onSubmitted: (String texto){
+
+                   print("valor digitado:" +  texto);
+
+                 },
+                 controller: _enderecoController,
+               ),
+             ),
+
+             Padding(padding: EdgeInsets.only(top: 15),
+              child:Text("DADOS DO VEICULO",
+                style: TextStyle(
+                  fontSize: 20,
+                  decoration: TextDecoration.underline,
+                ),),
+             ),
+          Padding(padding: EdgeInsets.fromLTRB(50, 0, 50 ,10),
               child: Row(children: [
                Expanded(
                  flex: 3,
@@ -125,6 +206,24 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                )
              ])
           ),
+             Padding(padding: EdgeInsets.fromLTRB(50,10,50,10),
+               child: TextField(
+                 decoration: InputDecoration(
+                     hintText: "Motor",
+                     labelText: "Motor do veiculo",
+                     labelStyle: TextStyle(
+                         fontSize: 20,
+                         color: Colors.blue
+                     )
+                 ),
+                 onSubmitted: (String texto){
+
+                   print("valor digitado:" +  texto);
+
+                 },
+                 controller: _motorController,
+               ),
+             ),
              Padding(padding: EdgeInsets.fromLTRB(50, 10, 50 ,10),
                  child:
                  MaskedTextField(
@@ -220,7 +319,10 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
 
       ),
       drawer: globals.DrawerComun(),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar:
+      GestureDetector(
+        onTap: _salvarDados,
+      child:Padding(
        padding: EdgeInsets.only(bottom: 10),
        child: Container(
            decoration: new BoxDecoration(
@@ -239,11 +341,12 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                      fontSize: 25
                  ),
                ),
-               onPressed: _salvarDados,
+
              ),
            )
        ),
-      )
+      ),
+    ),
     );
   }
 }
