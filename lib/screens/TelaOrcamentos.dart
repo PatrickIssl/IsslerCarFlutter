@@ -73,7 +73,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
           "placa": _placaController.text.toString(),
           "motor": _motorController.text.toString(),
           "ano": _anoController.text.toString(),
-          "pecas": _pecasController.text.toString(),
+          "pecas": lista,
           "data de entrada": _dataController.text.toString(),
           "cor_do_veiculo": _corController.text.toString(),
           "status": "novo"
