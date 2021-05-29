@@ -339,15 +339,20 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                 ),
               ),
 
-              lista.length == 0?Text("Lista Vazia"):
-              ListView.builder(
-                  itemCount: lista.length,
-                  itemBuilder:(context,indice){
-                    return ListTile(
-                      title: Text(indice.toString()),
-                    );
-                  })
-
+             Container(
+               height: 100,
+               padding: EdgeInsets.all(20),
+               child: ListView.builder(
+                   itemCount: lista.length,
+                   itemBuilder:(context,indice){
+                     return ListTile(
+                       title: Text(lista[indice].toString()),
+                       subtitle: Text(indice.toString()),
+                       onLongPress: (){lista.removeAt(indice);},
+                     );
+                   })
+               ,
+             )
             ],
           ),
         ),
