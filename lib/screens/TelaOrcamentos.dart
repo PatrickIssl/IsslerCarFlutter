@@ -12,6 +12,8 @@ class TelaOrcamentos extends StatefulWidget {
 
 class _TelaOrcamentosState extends State<TelaOrcamentos> {
 
+  List<String> lista = [];
+
   //cliente
   TextEditingController _nomeController = TextEditingController();
   TextEditingController _numeroController = TextEditingController();
@@ -25,6 +27,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
   TextEditingController _pecasController = TextEditingController();
   TextEditingController _dataController = TextEditingController();
   TextEditingController _corController = TextEditingController();
+
 
   _salvarDados() {
     var _variaveisVazias = "";
@@ -317,28 +320,34 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                     ),
                   ])),
               Padding(
-                  padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-                  child: Column(
-                    children: <Widget>[
-                      Card(
-                          child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextField(
-                          focusNode: _focusNodes[8],
-                          maxLines: 8,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: "Peças",
-                              hintText:
-                                  "Informe as Peças para realizar o orçamento",
-                              labelStyle:
-                                  TextStyle(fontSize: 20, color: Colors.blue)),
-                          onSubmitted: (text) {_salvarDados();},
-                          controller: _pecasController,
-                        ),
-                      ))
-                    ],
-                  )),
+                padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+                child: TextField(
+                  focusNode: _focusNodes[8],
+                  decoration: InputDecoration(
+                      hintText: "Peça",
+                      labelText: "Peça",
+                      labelStyle: TextStyle(fontSize: 20, color: Colors.blue)),
+                  controller: _pecasController,
+                  onSubmitted: (text){
+                    print("ola");
+                    setState(() {
+                      lista.add(_pecasController.text);
+                      _pecasController.text = "";
+                      print(lista.length);
+                    });
+                  },
+                ),
+              ),
+
+              lista.length == 0?Text("Lista Vazia"):
+              ListView.builder(
+                  itemCount: lista.length,
+                  itemBuilder:(context,indice){
+                    return ListTile(
+                      title: Text(indice.toString()),
+                    );
+                  })
+
             ],
           ),
         ),
