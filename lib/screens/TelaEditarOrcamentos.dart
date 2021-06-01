@@ -19,6 +19,8 @@ class TelaEditarOrcamentos extends StatefulWidget {
 }
 
 class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
+  List<Object> lista = [];
+
   //cliente
   TextEditingController _nomeController = TextEditingController();
   TextEditingController _numeroController = TextEditingController();
@@ -96,7 +98,6 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
   }
 
   var _focusNodes = List.generate(9, (index) => FocusNode());
-
   _setarDados(){
     setState(() {
       _nomeController.text = widget.doc.data['nome_do_cliente'];
@@ -106,9 +107,10 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
       _placaController.text = widget.doc.data['placa'];
       _motorController.text = widget.doc.data['motor'];
       _anoController.text = widget.doc.data['ano'];
-      _pecasController.text = widget.doc.data['pecas'];
+      lista = widget.doc.data['pecas'];
       _dataController.text = widget.doc.data['data_de_entrada'];
       _corController.text = widget.doc.data['cor_do_veiculo'];
+
     });
   }
 
@@ -342,19 +344,28 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                       Card(
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: TextField(
-                              enabled: false,
-                              focusNode: _focusNodes[8],
-                              maxLines: 8,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  labelText: "Peças",
-                                  hintText:
-                                  "Informe as Peças para realizar o orçamento",
-                                  labelStyle:
-                                  TextStyle(fontSize: 20, color: Colors.blue)),
-                              onSubmitted: (text) {_salvarDados();},
-                              controller: _pecasController,
+                            child: Container(
+                              height: 300,
+                              padding: EdgeInsets.all(20),
+                              child: ListView.builder(
+                                  itemCount: lista.length,
+                                  itemBuilder: (context, indice) {
+                                    return ListTile(
+                                      subtitle:
+                                      TextField(
+                                        focusNode: _focusNodes[6],
+                                        decoration: InputDecoration(
+                                            hintText: "Valor da peça : ${lista[indice]}",
+                                            labelText: lista[indice],
+                                            labelStyle:
+                                            TextStyle(fontSize: 20, color: Colors.blue)),
+                                        onSubmitted: (text) {
+                                          _focusNodes[7].requestFocus();
+                                        }
+                                      )
+
+                                    );
+                                  }),
                             ),
                           ))
                     ],
