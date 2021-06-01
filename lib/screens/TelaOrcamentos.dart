@@ -88,7 +88,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
         _pecasController.text = "";
         _dataController.text = "";
         _corController.text = "";
-        lista.clear();
+        setState(() {
+          lista.clear();
+        });
       } on Exception catch (_) {
         print("erro");
         globals.enviarExcessao(context,

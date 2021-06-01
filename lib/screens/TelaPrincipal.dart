@@ -94,6 +94,59 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                   ),
                 ],
               ),
+              Padding(padding: EdgeInsets.only(top: 20),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  GestureDetector(
+                    child:
+                    Container(height: 150 , width: 150,
+                      child:
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:<Widget>[
+                            Icon(Icons.list,size: 100,),
+                            Text("", style: TextStyle(fontSize: 20, color: Colors.white),)
+                          ]
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: globals.gradienteAzul,
+                        ),
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => TelaListarOrcamentos()),);
+                    },
+                  ),
+                  GestureDetector(
+                    child:
+                    Container(height: 150 , width: 150,
+                      child:
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:<Widget>[
+                            Icon(Icons.car_repair,size: 100,),
+                            Text("Orçamento", style: TextStyle(fontSize: 20, color: Colors.white),)
+                          ]
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: globals.gradienteAzul,
+                        ),
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => TelaOrcamentos()),);
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
