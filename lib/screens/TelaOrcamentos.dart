@@ -61,6 +61,8 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
       _variaveisVazias = _variaveisVazias + "peças /";
     }
 
+    lista.add("Mão de Obra");
+
     if (_variaveisVazias == "") {
       try {
         globals.db.collection("orcamentos").add({

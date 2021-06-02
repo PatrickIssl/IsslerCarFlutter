@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:isslercar/main.dart';
 import 'package:isslercar/screens/TelaListarOrcamentos.dart';
+import 'package:isslercar/screens/TelaListarOrcamentosRealizados.dart';
 import 'package:isslercar/screens/TelaOrcamentos.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:isslercar/screens/Login.dart';
@@ -53,8 +54,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:<Widget>[
-                          Icon(Icons.list,size: 100,),
-                          Text("Orçamentos", style: TextStyle(fontSize: 20, color: Colors.white),)
+                          Icon(Icons.playlist_add,size: 75,),
+                          Text(" Inserir \nValores", style: TextStyle(fontSize: 20, color: Colors.white),)
                         ]
                       ),
                       decoration: BoxDecoration(
@@ -76,8 +77,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:<Widget>[
-                            Icon(Icons.car_repair,size: 100,),
-                            Text("Orçamento", style: TextStyle(fontSize: 20, color: Colors.white),)
+                            Icon(Icons.car_repair,size: 75,),
+                            Text("Cadastrar \norçamento", style: TextStyle(fontSize: 20, color: Colors.white),)
                           ]
                       ),
                       decoration: BoxDecoration(
@@ -106,8 +107,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:<Widget>[
-                            Icon(Icons.list,size: 100,),
-                            Text("", style: TextStyle(fontSize: 20, color: Colors.white),)
+                            Icon(Icons.list,size: 75,),
+                            Text("Orçamentos \n completos", style: TextStyle(fontSize: 20, color: Colors.white),)
                           ]
                       ),
                       decoration: BoxDecoration(
@@ -119,7 +120,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       ),
                     ),
                     onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => TelaListarOrcamentos()),);
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => TelaListarOrcamentosRealizados()),);
                     },
                   ),
                   GestureDetector(
