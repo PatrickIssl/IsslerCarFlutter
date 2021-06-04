@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:isslercar/main.dart';
 import 'package:isslercar/screens/TelaListarOrcamentos.dart';
+import 'package:isslercar/screens/TelaListarOrcamentosConcluidos.dart';
 import 'package:isslercar/screens/TelaListarOrcamentosRealizados.dart';
 import 'package:isslercar/screens/TelaOrcamentos.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
@@ -130,8 +131,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:<Widget>[
-                            Icon(Icons.car_repair,size: 100,),
-                            Text("Orçamento", style: TextStyle(fontSize: 20, color: Colors.white),)
+                            Icon(Icons.check,size: 75,),
+                            Text("    Finalizar \natendimento", style: TextStyle(fontSize: 20, color: Colors.white),)
                           ]
                       ),
                       decoration: BoxDecoration(
@@ -143,7 +144,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                       ),
                     ),
                     onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder: (context) => TelaOrcamentos()),);
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => TelaListarOrcamentosConcluidos()),);
                     },
                   ),
                 ],
