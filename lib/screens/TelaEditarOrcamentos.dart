@@ -19,6 +19,11 @@ class TelaEditarOrcamentos extends StatefulWidget {
 }
 
 class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
+  List<Object> lista = [];
+
+  var _controllersPecas;
+
+
   //cliente
   TextEditingController _nomeController = TextEditingController();
   TextEditingController _numeroController = TextEditingController();
@@ -34,6 +39,12 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
   TextEditingController _corController = TextEditingController();
 
   _salvarDados() {
+    List valores = [];
+
+    for(int i = 0 ; i < lista.length; i++){
+      valores.add('${_controllersPecas[i].text}');
+    }
+
     var _variaveisVazias = "";
     if (_nomeController.text == "") {
       _variaveisVazias = _variaveisVazias + "Nome / ";
@@ -63,8 +74,8 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
       String data = DateFormat("dd/MM/yyyy").format(DateTime.now());
       _dataController.text = data.toString();
     }
-    if (_pecasController.text == "") {
-      _variaveisVazias = _variaveisVazias + "Peças / ";
+    if (_controllersPecas[0].text == "") {
+      _variaveisVazias = _variaveisVazias + "Valores / ";
     }
 
     if (_variaveisVazias == "") {
@@ -77,13 +88,18 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
           "placa": _placaController.text.toString(),
           "motor": _motorController.text.toString(),
           "ano": _anoController.text.toString(),
-          "pecas": _pecasController.text.toString(),
+          "pecas": lista,
+          "valores": valores,
           "data de entrada": _dataController.text.toString(),
           "cor_do_veiculo": _corController.text.toString(),
           "status": "avaliado"
         });
-        globals.enviarSucesso(context, "Valor Adicionado com sucesso");
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => TelaListarOrcamentos()),);
+
+        globals.db.collection("orcamentos").document(widget.doc.documentID).delete();
+
+        globals.enviarSucesso(context, "Valor de orçamento Adicionado com sucesso");
+        Navigator.pop(context);
+        Navigator.pop(context);
       } on Exception catch (_) {
         print("erro");
         globals.enviarExcessao(context,
@@ -95,8 +111,6 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
     }
   }
 
-  var _focusNodes = List.generate(9, (index) => FocusNode());
-
   _setarDados(){
     setState(() {
       _nomeController.text = widget.doc.data['nome_do_cliente'];
@@ -106,9 +120,11 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
       _placaController.text = widget.doc.data['placa'];
       _motorController.text = widget.doc.data['motor'];
       _anoController.text = widget.doc.data['ano'];
-      _pecasController.text = widget.doc.data['pecas'];
-      _dataController.text = widget.doc.data['data_de_entrada'];
+      lista = widget.doc.data['pecas'];
+      _controllersPecas = List.generate(lista.length, (index) => TextEditingController());
+      _dataController.text = widget.doc.data['data de entrada'];
       _corController.text = widget.doc.data['cor_do_veiculo'];
+
     });
   }
 
@@ -163,7 +179,6 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                       labelStyle: TextStyle(fontSize: 20, color: Colors.blue)),
                   controller: _nomeController,
                   onSubmitted: (text){
-                    _focusNodes[0].requestFocus();
                   },
                 ),
               ),
@@ -171,12 +186,10 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                 padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextField(
                   enabled: false,
-                  focusNode: _focusNodes[0],
                   inputFormatters: [
                     MaskedTextInputFormatterShifter(
                         maskONE: "(XX)XXXXX-XXXX", maskTWO: "(XX)XXXXX-XXXX")
                   ],
-                  onSubmitted: (text) {_focusNodes[1].requestFocus();},
                   maxLength: 14,
                   keyboardType: TextInputType.datetime,
                   decoration: new InputDecoration(
@@ -190,12 +203,10 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                 padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextField(
                   enabled: false,
-                  focusNode: _focusNodes[1],
                   decoration: InputDecoration(
                       hintText: "Endereço do Cliente",
                       labelText: "Endereço",
                       labelStyle: TextStyle(fontSize: 20, color: Colors.blue)),
-                  onSubmitted: (text) {_focusNodes[2].requestFocus();},
                   controller: _enderecoController,
                 ),
               ),
@@ -216,13 +227,11 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                         flex: 3,
                         child: TextField(
                           enabled: false,
-                          focusNode: _focusNodes[2],
                           decoration: InputDecoration(
                               hintText: "Modelo do veículo",
                               labelText: "Modelo",
                               labelStyle:
                               TextStyle(fontSize: 20, color: Colors.blue)),
-                          onSubmitted: (text) {_focusNodes[3].requestFocus();},
                           controller: _carroController,
                         )),
                     SizedBox(
@@ -234,12 +243,10 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                           padding: EdgeInsets.only(top: 20),
                           child: TextField(
                             enabled: false,
-                            focusNode: _focusNodes[3],
                             inputFormatters: [
                               MaskedTextInputFormatterShifter(
                                   maskONE: "XXXX/XXXX", maskTWO: "XXXX/XXXX")
                             ],
-                            onSubmitted: (text) {_focusNodes[4].requestFocus();},
                             keyboardType: TextInputType.datetime,
                             maxLength: 9,
                             decoration: new InputDecoration(
@@ -255,12 +262,10 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                 padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                 child: TextField(
                   enabled: false,
-                  focusNode: _focusNodes[4],
                   decoration: InputDecoration(
                       hintText: "Motor",
                       labelText: "Motor do veiculo",
                       labelStyle: TextStyle(fontSize: 20, color: Colors.blue)),
-                  onSubmitted: (text) {_focusNodes[5].requestFocus();},
                   controller: _motorController,
                 ),
               ),
@@ -268,13 +273,11 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                   padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
                   child: TextField(
                     enabled: false,
-                    focusNode: _focusNodes[5],
                     inputFormatters: [
                       MaskedTextInputFormatterShifter(
                           maskONE: "XXX-XXXX", maskTWO: "XXX-XXXX")
                     ],
                     maxLength: 8,
-                    onSubmitted: (text) {_focusNodes[6].requestFocus();},
                     decoration: new InputDecoration(
                         hintText: "Informe a placa do veículo",
                         labelText: "Placa",
@@ -289,13 +292,11 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                         flex: 3,
                         child: TextField(
                           enabled: false,
-                          focusNode: _focusNodes[6],
                           decoration: InputDecoration(
                               hintText: "Cor",
                               labelText: "Cor",
                               labelStyle:
                               TextStyle(fontSize: 20, color: Colors.blue)),
-                          onSubmitted: (text) {_focusNodes[7].requestFocus();},
                           controller: _corController,
                         )),
                     SizedBox(
@@ -307,14 +308,12 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                           padding: EdgeInsets.only(top: 20),
                           child: TextField(
                             enabled: false,
-                            focusNode: _focusNodes[7],
                             inputFormatters: [
                               MaskedTextInputFormatterShifter(
                                   maskONE: "XX/XX/XXXX", maskTWO: "XX/XX/XXXX")
                             ],
                             keyboardType: TextInputType.datetime,
                             maxLength: 10,
-                            onSubmitted: (text) {_focusNodes[8].requestFocus();},
                             decoration: new InputDecoration(
                                 hintText: "Data Entrada",
                                 labelText: "Entrada",
@@ -323,17 +322,7 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                             controller: _dataController,
                           ),
                         )),
-                    Expanded(
-                      flex: 1,
-                      child: GestureDetector(
-                        child: Icon(Icons.calendar_today),
-                        onTap: () {
-                          String data =
-                          DateFormat("dd/MM/yyyy").format(DateTime.now());
-                          _dataController.text = data.toString();
-                        },
-                      ),
-                    ),
+
                   ])),
               Padding(
                   padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
@@ -342,19 +331,28 @@ class _TelaEditarOrcamentosState extends State<TelaEditarOrcamentos> {
                       Card(
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: TextField(
-                              enabled: false,
-                              focusNode: _focusNodes[8],
-                              maxLines: 8,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  labelText: "Peças",
-                                  hintText:
-                                  "Informe as Peças para realizar o orçamento",
-                                  labelStyle:
-                                  TextStyle(fontSize: 20, color: Colors.blue)),
-                              onSubmitted: (text) {_salvarDados();},
-                              controller: _pecasController,
+                            child: Container(
+                              height: 300,
+                              padding: EdgeInsets.all(20),
+                              child: ListView.builder(
+                                  itemCount: lista.length,
+                                  itemBuilder: (context, indice) {
+                                    return ListTile(
+                                      subtitle:
+                                      TextField(
+                                        controller: _controllersPecas[indice],
+                                        decoration: InputDecoration(
+                                            hintText: "Valor da peça : ${lista[indice]}",
+                                            labelText: lista[indice],
+                                            labelStyle:
+                                            TextStyle(fontSize: 20, color: Colors.blue)),
+                                        onSubmitted: (text) {
+                                          print(_controllersPecas[indice].text);
+                                        }
+                                      )
+
+                                    );
+                                  }),
                             ),
                           ))
                     ],

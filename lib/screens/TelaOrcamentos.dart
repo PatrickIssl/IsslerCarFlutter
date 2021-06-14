@@ -11,6 +11,7 @@ class TelaOrcamentos extends StatefulWidget {
 }
 
 class _TelaOrcamentosState extends State<TelaOrcamentos> {
+  List<String> lista = [];
 
   //cliente
   TextEditingController _nomeController = TextEditingController();
@@ -56,9 +57,11 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
       String data = DateFormat("dd/MM/yyyy").format(DateTime.now());
       _dataController.text = data.toString();
     }
-    if (_pecasController.text == "") {
-      _variaveisVazias = _variaveisVazias + "Peças / ";
+    if (lista.length == 0) {
+      _variaveisVazias = _variaveisVazias + "peças /";
     }
+
+    lista.add("Mão de Obra");
 
     if (_variaveisVazias == "") {
       try {
@@ -70,23 +73,26 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
           "placa": _placaController.text.toString(),
           "motor": _motorController.text.toString(),
           "ano": _anoController.text.toString(),
-          "pecas": _pecasController.text.toString(),
+          "pecas": lista,
           "data de entrada": _dataController.text.toString(),
           "cor_do_veiculo": _corController.text.toString(),
           "status": "novo"
         });
-        globals.enviarSucesso(context, "Cadastro de orçamento concluido com sucesso");
+        globals.enviarSucesso(
+            context, "Cadastro de orçamento concluido com sucesso");
         _numeroController.text = "";
-        _enderecoController.text="";
-        _nomeController.text="";
-        _carroController.text="";
-        _placaController.text="";
-        _motorController.text="";
-        _anoController.text="";
-        _pecasController.text="";
-        _dataController.text="";
-        _corController.text="";
-
+        _enderecoController.text = "";
+        _nomeController.text = "";
+        _carroController.text = "";
+        _placaController.text = "";
+        _motorController.text = "";
+        _anoController.text = "";
+        _pecasController.text = "";
+        _dataController.text = "";
+        _corController.text = "";
+        setState(() {
+          lista.clear();
+        });
       } on Exception catch (_) {
         print("erro");
         globals.enviarExcessao(context,
@@ -98,9 +104,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
     }
   }
 
-
   var _focusNodes = List.generate(9, (index) => FocusNode());
-
 
   @override
   Widget build(BuildContext context) {
@@ -151,9 +155,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                       labelText: "Nome",
                       labelStyle: TextStyle(fontSize: 20, color: Colors.blue)),
                   controller: _nomeController,
-                onSubmitted: (text){
-                  _focusNodes[0].requestFocus();
-                },
+                  onSubmitted: (text) {
+                    _focusNodes[0].requestFocus();
+                  },
                 ),
               ),
               Padding(
@@ -164,7 +168,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                     MaskedTextInputFormatterShifter(
                         maskONE: "(XX)XXXXX-XXXX", maskTWO: "(XX)XXXXX-XXXX")
                   ],
-                  onSubmitted: (text) {_focusNodes[1].requestFocus();},
+                  onSubmitted: (text) {
+                    _focusNodes[1].requestFocus();
+                  },
                   maxLength: 14,
                   keyboardType: TextInputType.datetime,
                   decoration: new InputDecoration(
@@ -182,7 +188,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                       hintText: "Endereço do Cliente",
                       labelText: "Endereço",
                       labelStyle: TextStyle(fontSize: 20, color: Colors.blue)),
-                  onSubmitted: (text) {_focusNodes[2].requestFocus();},
+                  onSubmitted: (text) {
+                    _focusNodes[2].requestFocus();
+                  },
                   controller: _enderecoController,
                 ),
               ),
@@ -208,7 +216,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                               labelText: "Modelo",
                               labelStyle:
                                   TextStyle(fontSize: 20, color: Colors.blue)),
-                          onSubmitted: (text) {_focusNodes[3].requestFocus();},
+                          onSubmitted: (text) {
+                            _focusNodes[3].requestFocus();
+                          },
                           controller: _carroController,
                         )),
                     SizedBox(
@@ -224,7 +234,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                               MaskedTextInputFormatterShifter(
                                   maskONE: "XXXX/XXXX", maskTWO: "XXXX/XXXX")
                             ],
-                            onSubmitted: (text) {_focusNodes[4].requestFocus();},
+                            onSubmitted: (text) {
+                              _focusNodes[4].requestFocus();
+                            },
                             keyboardType: TextInputType.datetime,
                             maxLength: 9,
                             decoration: new InputDecoration(
@@ -244,7 +256,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                       hintText: "Motor",
                       labelText: "Motor do veiculo",
                       labelStyle: TextStyle(fontSize: 20, color: Colors.blue)),
-                  onSubmitted: (text) {_focusNodes[5].requestFocus();},
+                  onSubmitted: (text) {
+                    _focusNodes[5].requestFocus();
+                  },
                   controller: _motorController,
                 ),
               ),
@@ -257,7 +271,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                           maskONE: "XXX-XXXX", maskTWO: "XXX-XXXX")
                     ],
                     maxLength: 8,
-                    onSubmitted: (text) {_focusNodes[6].requestFocus();},
+                    onSubmitted: (text) {
+                      _focusNodes[6].requestFocus();
+                    },
                     decoration: new InputDecoration(
                         hintText: "Informe a placa do veículo",
                         labelText: "Placa",
@@ -277,7 +293,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                               labelText: "Cor",
                               labelStyle:
                                   TextStyle(fontSize: 20, color: Colors.blue)),
-                          onSubmitted: (text) {_focusNodes[7].requestFocus();},
+                          onSubmitted: (text) {
+                            _focusNodes[7].requestFocus();
+                          },
                           controller: _corController,
                         )),
                     SizedBox(
@@ -295,7 +313,9 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                             ],
                             keyboardType: TextInputType.datetime,
                             maxLength: 10,
-                            onSubmitted: (text) {_focusNodes[8].requestFocus();},
+                            onSubmitted: (text) {
+                              _focusNodes[8].requestFocus();
+                            },
                             decoration: new InputDecoration(
                                 hintText: "Data Entrada",
                                 labelText: "Entrada",
@@ -316,29 +336,74 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                       ),
                     ),
                   ])),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-                  child: Column(
-                    children: <Widget>[
-                      Card(
-                          child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextField(
-                          focusNode: _focusNodes[8],
-                          maxLines: 8,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              labelText: "Peças",
-                              hintText:
-                                  "Informe as Peças para realizar o orçamento",
-                              labelStyle:
-                                  TextStyle(fontSize: 20, color: Colors.blue)),
-                          onSubmitted: (text) {_salvarDados();},
-                          controller: _pecasController,
+              Row(children: [
+                Expanded(
+                  flex: 5,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+                    child: TextField(
+                      focusNode: _focusNodes[8],
+                      decoration: InputDecoration(
+                          hintText: "Peça",
+                          labelText: "Peça",
+                          labelStyle:
+                              TextStyle(fontSize: 20, color: Colors.blue)),
+                      controller: _pecasController,
+                      onSubmitted: (text) {
+                        if (_pecasController.text == ""){
+                        }else{
+                          setState(() {
+                            lista.add(_pecasController.text);
+                            _pecasController.text = "";
+                            print(lista.length);
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                    onTap: () {
+                      if (_pecasController.text == ""){
+                      }else{
+                        setState(() {
+                          lista.add(_pecasController.text);
+                          _pecasController.text = "";
+                          print(lista.length);
+
+                        });
+                      }
+                    },
+                    child: Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 75),
+                        child: Icon(
+                          Icons.playlist_add,
+                          color: Colors.blue,
+                          size: 40,
                         ),
-                      ))
-                    ],
-                  )),
+                      ),
+                    )),
+              ]),
+              Container(
+                height: 300,
+                padding: EdgeInsets.all(20),
+                child: ListView.builder(
+                    itemCount: lista.length,
+                    itemBuilder: (context, indice) {
+                      return ListTile(
+                        title: Text(lista[indice]),
+                        subtitle:
+                            Text("Mantenha pressionado para remover a peça"),
+                        onLongPress: () {
+                          setState(() {
+                            lista.removeAt(indice);
+                          });
+                        },
+                      );
+                    }),
+              ),
             ],
           ),
         ),
