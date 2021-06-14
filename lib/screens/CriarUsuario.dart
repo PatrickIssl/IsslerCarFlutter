@@ -1,4 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
@@ -19,38 +21,41 @@ class _CriarUsuarioState extends State<CriarUsuario> {
     if (_controllerSenha.text != "" &&
         _controllerSenha.text != "" &&
         _controllerEmail.text != "") {
-      await globals.auth
-          .createUserWithEmailAndPassword(
-        email: _controllerLogin.text,
-        password: _controllerSenha.text,
-      )
-          .then((firebaseUser) async {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Criação de usuario"),
-                content: Text(
-                    "O usuário com E-mail ${firebaseUser.email} foi criado com sucesso"),
-                actions: [
-                  FlatButton(
-                      onPressed: () async {
-                        await globals.auth.signOut();
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },
-                      child: Text("OK"))
-                ],
-              );
-            });
-      }).catchError((erro) {
-        print(" erro ao logar : " + erro.toString());
+      var corpo = json.encode({
+        "id": null,
+        "email": _controllerEmail.text,
+        "senha": _controllerSenha.text
       });
-    } else {
-      print("E-mail, senha ou nome está vazio");
+      try {
+        http.Response response = await http.post(
+            globals.url + "usuario/salvar",
+            headers: {"Content-type": "application/json; charset=UTF-8"},
+            body: corpo);
+        if (response.statusCode == 201) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Usuario cadastrado com sucesso'),
+            backgroundColor: Colors.green,
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.error,
+                  color: Colors.white,
+                  size: 24.0,
+                ),
+                Text("Erro ao cadastrar usuario")
+              ],
+            ),
+            backgroundColor: Colors.red,
+          ));
+        }
+      } on Exception catch (_) {
+        print("Erro");
+      }
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

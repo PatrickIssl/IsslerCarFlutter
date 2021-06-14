@@ -3,7 +3,10 @@ library my_prj.globals;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:isslercar/entity/Conta.dart';
+import 'package:isslercar/metodos/LoginEntity.dart';
 import 'package:isslercar/screens/Login.dart';
+
 
 var colorsFundo = [
   Color(0xFFD2D2D2),
@@ -37,7 +40,7 @@ var colorTitulo = [
 var entrou = 0;
 
 //usuario logado
-FirebaseUser usuarioAtual;
+var usuarioAtual;
 
 //versão
 var version = "Version 1.0.0 powered by Patrick Issler";
@@ -53,6 +56,12 @@ var recuperarSenha = "Informe o seu E-mail para recuperação de senha";
 //criar usuario
 
 var criarUsuario = "Informe os dados do usuário a ser cadastrado";
+
+//
+var headerComum = {'Accept': 'application/json; charset=UTF-8'};
+
+var url = "https://localhost:5090/";
+LoginEntity login = new LoginEntity();
 
 enviarExcessao(context, text) {
   showDialog(

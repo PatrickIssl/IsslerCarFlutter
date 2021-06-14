@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:isslercar/metodos/Login.dart';
 import 'package:isslercar/screens/CriarUsuario.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'RecuperaSenha.dart';
@@ -14,23 +15,16 @@ class _LoginState extends State<Login> {
   TextEditingController _controllerSenha = TextEditingController();
   bool _showPassword = false;
 
+
   _realizarLogin() async {
     if (_controllerSenha.text != "" && _controllerSenha.text != "") {
-      globals.auth
-          .signInWithEmailAndPassword(
-              email: _controllerLogin.text, password: _controllerSenha.text)
-          .then((firebaseUser) {
-        globals.usuarioAtual = firebaseUser;
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => TelaPrincipal()),
-        );
-      }).catchError((erro) {
-        print(" erro ao logar : " + erro.toString());
-      });
-    } else {
-      print("E-mail ou senha está vazio");
-    }
+      globals.login.login = _controllerLogin.text;
+      globals.login.password = _controllerSenha.text;
+      globals.usuarioAtual = await realizarLogin(context);
+      if (globals.usuarioAtual.id != null) {
+        MaterialPageRoute(builder: (context) => TelaPrincipal());
+  }
+  }
   }
 
   @override
