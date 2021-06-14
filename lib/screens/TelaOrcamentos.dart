@@ -4,6 +4,7 @@ import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:mask_shifter/mask_shifter.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class TelaOrcamentos extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
   TextEditingController _dataController = TextEditingController();
   TextEditingController _corController = TextEditingController();
 
-  _salvarDados() {
+  _salvarDados() async {
     var _variaveisVazias = "";
     if (_nomeController.text == "") {
       _variaveisVazias = _variaveisVazias + "Nome / ";
@@ -64,20 +65,24 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
     lista.add("Mão de Obra");
 
     if (_variaveisVazias == "") {
+      var corpo = {
+        "numero_do_cliente": _numeroController.text.toString(),
+        "endereco_do_cliente": _enderecoController.text.toString(),
+        "nome_do_cliente": _nomeController.text.toString(),
+        "modelo": _carroController.text.toString(),
+        "placa": _placaController.text.toString(),
+        "motor": _motorController.text.toString(),
+        "ano": _anoController.text.toString(),
+        "pecas": lista,
+        "data_de_entrada": _dataController.text.toString(),
+        "cor_do_veiculo": _corController.text.toString(),
+        "status": "novo"
+      };
+
+
       try {
-        globals.db.collection("orcamentos").add({
-          "numero_do_cliente": _numeroController.text.toString(),
-          "endereco_do_cliente": _enderecoController.text.toString(),
-          "nome_do_cliente": _nomeController.text.toString(),
-          "modelo": _carroController.text.toString(),
-          "placa": _placaController.text.toString(),
-          "motor": _motorController.text.toString(),
-          "ano": _anoController.text.toString(),
-          "pecas": lista,
-          "data de entrada": _dataController.text.toString(),
-          "cor_do_veiculo": _corController.text.toString(),
-          "status": "novo"
-        });
+        http.Response response = await http
+            .post("${globals.url}orcamentos/adicionar", body: corpo);
         globals.enviarSucesso(
             context, "Cadastro de orçamento concluido com sucesso");
         _numeroController.text = "";

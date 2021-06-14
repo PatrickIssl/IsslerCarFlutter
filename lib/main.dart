@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:isslercar/screens/SplashScreen.dart';
+import 'package:isslercar/screens/Login.dart';
 import 'package:isslercar/screens/TelaOrcamentos.dart';
 import 'variaveis/globals.dart' as globals;
 
@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     RestartWidget(
-      child: MaterialApp(home: SplashScreen()),
+      child: MaterialApp(home: Login()),
     ),
   );
 }

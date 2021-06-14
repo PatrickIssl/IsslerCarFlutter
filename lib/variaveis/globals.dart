@@ -1,8 +1,6 @@
 library my_prj.globals;
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:isslercar/entity/Conta.dart';
 import 'package:isslercar/metodos/LoginEntity.dart';
 import 'package:isslercar/screens/Login.dart';
@@ -23,11 +21,6 @@ var gradienteVermelho = [
   Color(0xFFFF2A2A),
 ];
 
-//metodo auth da autenticação do usuário
-FirebaseAuth auth = FirebaseAuth.instance;
-
-//banco de dados
-Firestore db = Firestore.instance;
 
 //splashScreen
 var titulo = "ISSLER";
@@ -113,7 +106,6 @@ class _DrawerComunState extends State<DrawerComun> {
   }
 
   _deslogar() async {
-    auth.signOut();
     _voltarTelaLogin();
     print("teste");
   }
