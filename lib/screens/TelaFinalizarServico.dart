@@ -1,15 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:isslercar/entity/Orcamento.dart';
 import 'package:isslercar/main.dart';
 import 'package:isslercar/screens/TelaListarOrcamentos.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
 import 'package:mask_shifter/mask_shifter.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class TelaFinalizarServico extends StatefulWidget {
-  DocumentSnapshot doc;
+  Orcamento doc;
 
   TelaFinalizarServico(this.doc);
 
@@ -51,8 +52,7 @@ class _TelaFinalizarServicoState extends State<TelaFinalizarServico> {
           "placa": _placaController.text.toString(),
           "motor": _motorController.text.toString(),
           "ano": _anoController.text.toString(),
-          "pecas": lista,
-          "valores": valores,
+          "pecas": {"nome": lista, "valor" : valores},
           "valor total": valorTotal,
           "data de entrada": _dataController.text.toString(),
           "cor_do_veiculo": _corController.text.toString(),
@@ -80,18 +80,17 @@ class _TelaFinalizarServicoState extends State<TelaFinalizarServico> {
 
   _setarDados() {
     setState(() {
-      _nomeController.text = widget.doc.data['nome_do_cliente'];
-      _numeroController.text = widget.doc.data['numero_do_cliente'];
-      _enderecoController.text = widget.doc.data['endereco_do_cliente'];
-      _carroController.text = widget.doc.data['modelo'];
-      _placaController.text = widget.doc.data['placa'];
-      _motorController.text = widget.doc.data['motor'];
-      _anoController.text = widget.doc.data['ano'];
-      lista = widget.doc.data['pecas'];
-      valores = widget.doc.data['valores'];
-      _dataController.text = widget.doc.data['data de entrada'];
-      _corController.text = widget.doc.data['cor_do_veiculo'];
-      valorTotal = widget.doc.data['valor total'];
+      _nomeController.text = widget.doc.nome_do_cliente;
+      _numeroController.text = widget.doc.numero_do_cliente;
+      _enderecoController.text = widget.doc.endereco_do_cliente;
+      _carroController.text = widget.doc.modelo;
+      _placaController.text = widget.doc.placa;
+      _motorController.text = widget.doc.motor;
+      _anoController.text = widget.doc.ano;
+      lista = widget.doc.pecas;
+      _dataController.text = widget.doc.data_de_entrada;
+      _corController.text = widget.doc.cor_do_veiculo;
+      valorTotal = widget.doc.valor_total;
     });
   }
 
@@ -247,11 +246,11 @@ class _TelaFinalizarServicoState extends State<TelaFinalizarServico> {
                                 fontSize: 20,
                                 color: Colors.orange
                             ),
-                            content: Text("Cliente: ${widget.doc.data['nome_do_cliente']} | Carro: ${widget.doc.data['modelo']} | Placa ${widget.doc.data['placa']}"),
+                            content: Text("Cliente: ${widget.doc.nome_do_cliente} | Carro: ${widget.doc.modelo} | Placa ${widget.doc.placa}"),
                             actions: <Widget>[
                               FlatButton(
                                   onPressed: (){
-                                    globals.db.collection("orcamentos confirmados").document(widget.doc.documentID).delete();
+
                                     Navigator.pop(context);
                                     Navigator.pop(context);
                                     },

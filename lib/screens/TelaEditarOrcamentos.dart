@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:isslercar/entity/Orcamento.dart';
 import 'package:isslercar/main.dart';
 import 'package:isslercar/screens/TelaListarOrcamentos.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 
 class TelaEditarOrcamentos extends StatefulWidget {
 
-  DocumentSnapshot doc;
+  Orcamento doc;
 
   TelaEditarOrcamentos(this.doc);
 
