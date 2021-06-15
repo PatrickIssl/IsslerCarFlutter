@@ -97,7 +97,7 @@ class _TelaListarOrcamentosState extends State<TelaListarOrcamentos> {
                                FlatButton(
                                    onPressed: (){
                                      Navigator.pop(context);
-                                     Navigator.push(context,MaterialPageRoute(builder: (context) => TelaEditarOrcamentos(orcamento)),);
+                                     // Navigator.push(context,MaterialPageRoute(builder: (context) => TelaEditarOrcamentos(orcamento)),);
                                    },
                                    child: Text("Correto")
                                ),

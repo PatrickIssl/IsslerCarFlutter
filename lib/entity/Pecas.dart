@@ -9,7 +9,7 @@ class Pecas {
   int get id => _id;
 
 
-  Pecas(this._id, this._nome, this._valor);
+  Pecas();
 
   set id(int value) {
     _id = value;

@@ -56,7 +56,7 @@ var criarUsuario = "Informe os dados do usuário a ser cadastrado";
 //
 var headerComum = {'Accept': 'application/json; charset=UTF-8'};
 
-var url = "https://localhost:5090/";
+var url = "http://localhost:5091/";
 LoginEntity login = new LoginEntity();
 
 enviarExcessao(context, text) {

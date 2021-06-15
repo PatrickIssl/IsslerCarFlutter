@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:isslercar/entity/Pecas.dart';
 import 'package:isslercar/main.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
 import 'package:isslercar/variaveis/globals.dart' as globals;
@@ -12,7 +13,7 @@ class TelaOrcamentos extends StatefulWidget {
 }
 
 class _TelaOrcamentosState extends State<TelaOrcamentos> {
-  List<String> lista = [];
+  List<Pecas> lista = [];
 
   //cliente
   TextEditingController _nomeController = TextEditingController();
@@ -28,7 +29,10 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
   TextEditingController _dataController = TextEditingController();
   TextEditingController _corController = TextEditingController();
 
+    Pecas peca = new Pecas();
+
   _salvarDados() async {
+    Pecas peca;
     var _variaveisVazias = "";
     if (_nomeController.text == "") {
       _variaveisVazias = _variaveisVazias + "Nome / ";
@@ -62,9 +66,13 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
       _variaveisVazias = _variaveisVazias + "peças /";
     }
 
-    lista.add("Mão de Obra");
-
     if (_variaveisVazias == "") {
+      String pecas = '[{"nome": "Mão de obra", "orcamentos":{"id": "2"}}';
+      for(int i; i < lista.length; i++){
+         pecas = pecas + ',{"nome": "${lista[i].nome}", "orcamentos":{"id": "2"}}';
+      }
+      pecas = pecas + "]";
+
       var corpo = {
         "numero_do_cliente": _numeroController.text.toString(),
         "endereco_do_cliente": _enderecoController.text.toString(),
@@ -73,7 +81,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
         "placa": _placaController.text.toString(),
         "motor": _motorController.text.toString(),
         "ano": _anoController.text.toString(),
-        "pecas": lista,
+        "pecas": pecas,
         "data_de_entrada": _dataController.text.toString(),
         "cor_do_veiculo": _corController.text.toString(),
         "status": "novo"
@@ -358,7 +366,8 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                         if (_pecasController.text == ""){
                         }else{
                           setState(() {
-                            lista.add(_pecasController.text);
+                            peca.nome = _pecasController.text;
+                            lista.add(peca);
                             _pecasController.text = "";
                             print(lista.length);
                           });
@@ -372,7 +381,8 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                       if (_pecasController.text == ""){
                       }else{
                         setState(() {
-                          lista.add(_pecasController.text);
+                          peca.nome = _pecasController.text;
+                          lista.add(peca);
                           _pecasController.text = "";
                           print(lista.length);
 
@@ -398,7 +408,7 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                     itemCount: lista.length,
                     itemBuilder: (context, indice) {
                       return ListTile(
-                        title: Text(lista[indice]),
+                        title: Text(lista[indice].nome),
                         subtitle:
                             Text("Mantenha pressionado para remover a peça"),
                         onLongPress: () {

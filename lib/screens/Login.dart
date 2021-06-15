@@ -21,8 +21,9 @@ class _LoginState extends State<Login> {
       globals.login.login = _controllerLogin.text;
       globals.login.password = _controllerSenha.text;
       globals.usuarioAtual = await realizarLogin(context);
+      print(globals.usuarioAtual);
       if (globals.usuarioAtual.id != null) {
-        MaterialPageRoute(builder: (context) => TelaPrincipal());
+       Navigator.push(context, MaterialPageRoute(builder: (context) => TelaPrincipal()));
   }
   }
   }

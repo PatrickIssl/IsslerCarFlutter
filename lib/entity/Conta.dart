@@ -2,7 +2,7 @@ class Conta{
   int _id;
   String _conta;
   String _senha;
-  String _mfa;
+  String _email;
 
 
   int get id => _id;
@@ -19,15 +19,15 @@ class Conta{
 
   String get senha => _senha;
 
-  String get mfa => _mfa;
+  String get email => _email;
 
-  set mfa(String value) {
-    _mfa = value;
+  set email(String value) {
+    _email = value;
   }
 
   set senha(String value) {
     _senha = value;
   }
 
-  Conta(this._id, this._conta, this._senha, this._mfa);
+  Conta(this._id, this._conta, this._senha, this._email);
 }

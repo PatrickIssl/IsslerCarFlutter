@@ -13,7 +13,7 @@ Future<Conta> realizarLogin(context) async {
   if (response.statusCode == 200) {
     var dadosJson = json.decode(response.body);
     Conta conta = Conta(dadosJson["id"], dadosJson["conta"].toString(),
-        dadosJson["senha"].toString(), dadosJson["mfa"].toString());
+        dadosJson["senha"].toString(), dadosJson["email"].toString());
     return conta;
   }
   if (response.statusCode == 400) {
