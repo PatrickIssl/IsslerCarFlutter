@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="patrick.issler.isslercar">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
-        android:label="isslercar"
+        android:label="IsslerCar"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
