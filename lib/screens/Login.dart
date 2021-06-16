@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:isslercar/screens/CriarUsuario.dart';
 import 'package:isslercar/screens/TelaPrincipal.dart';
@@ -15,12 +16,14 @@ class _LoginState extends State<Login> {
   bool _showPassword = false;
 
   _realizarLogin() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
     if (_controllerSenha.text != "" && _controllerSenha.text != "") {
-      globals.auth
+
+      await auth
           .signInWithEmailAndPassword(
               email: _controllerLogin.text, password: _controllerSenha.text)
           .then((firebaseUser) {
-        globals.usuarioAtual = firebaseUser;
+        globals.usuarioAtual = firebaseUser.user;
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => TelaPrincipal()),

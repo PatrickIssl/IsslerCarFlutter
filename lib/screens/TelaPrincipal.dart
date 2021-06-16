@@ -53,6 +53,29 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     Container(height: 150 , width: 150,
                       child:
                       Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:<Widget>[
+                            Icon(Icons.car_repair,size: 75,),
+                            Text("Cadastrar \norçamento", style: TextStyle(fontSize: 20, color: Colors.white),)
+                          ]
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: globals.gradienteAzul,
+                        ),
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => TelaOrcamentos()),);
+                    },
+                  ),
+                  GestureDetector(
+                    child:
+                    Container(height: 150 , width: 150,
+                      child:
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:<Widget>[
                           Icon(Icons.playlist_add,size: 75,),
@@ -70,29 +93,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     onTap: (){
                       Navigator.push(context,MaterialPageRoute(builder: (context) => TelaListarOrcamentos()),);
                     },
-                  ),
-                  GestureDetector(
-                    child:
-                    Container(height: 150 , width: 150,
-                      child:
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children:<Widget>[
-                            Icon(Icons.car_repair,size: 75,),
-                            Text("Cadastrar \norçamento", style: TextStyle(fontSize: 20, color: Colors.white),)
-                          ]
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: globals.gradienteAzul,
-                        ),
-                      ),
-                    ),
-                      onTap: (){
-                       Navigator.push(context,MaterialPageRoute(builder: (context) => TelaOrcamentos()),);
-                      },
                   ),
                 ],
               ),

@@ -31,7 +31,7 @@ class _CriarUsuarioState extends State<CriarUsuario> {
               return AlertDialog(
                 title: Text("Criação de usuario"),
                 content: Text(
-                    "O usuário com E-mail ${firebaseUser.email} foi criado com sucesso"),
+                    "O usuário com E-mail ${firebaseUser.user.email} foi criado com sucesso"),
                 actions: [
                   FlatButton(
                       onPressed: () async {

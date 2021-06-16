@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:isslercar/screens/SplashScreen.dart';
 import 'package:isslercar/screens/TelaOrcamentos.dart';
 import 'variaveis/globals.dart' as globals;
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     RestartWidget(
-      child: MaterialApp(home: SplashScreen()),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen()),
     ),
   );
 }
