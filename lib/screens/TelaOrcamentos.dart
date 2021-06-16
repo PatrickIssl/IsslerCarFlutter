@@ -336,56 +336,111 @@ class _TelaOrcamentosState extends State<TelaOrcamentos> {
                       ),
                     ),
                   ])),
-              Row(children: [
-                Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-                    child: TextField(
-                      focusNode: _focusNodes[8],
-                      decoration: InputDecoration(
-                          hintText: "Peça",
-                          labelText: "Peça",
-                          labelStyle:
-                              TextStyle(fontSize: 20, color: Colors.blue)),
-                      controller: _pecasController,
-                      onSubmitted: (text) {
-                        if (_pecasController.text == ""){
-                        }else{
-                          setState(() {
-                            lista.add(_pecasController.text);
-                            _pecasController.text = "";
-                            print(lista.length);
-                          });
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                    onTap: () {
-                      if (_pecasController.text == ""){
-                      }else{
-                        setState(() {
-                          lista.add(_pecasController.text);
-                          _pecasController.text = "";
-                          print(lista.length);
 
-                        });
-                      }
-                    },
-                    child: Expanded(
+
+
+              Padding(
+                  padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+                  child: Row(children: [
+                    Expanded(
+                        flex: 3,
+                        child: TextField(
+                          focusNode: _focusNodes[8],
+                          decoration: InputDecoration(
+                              hintText: "Peça",
+                              labelText: "Peça",
+                              labelStyle:
+                              TextStyle(fontSize: 20, color: Colors.blue)),
+                          controller: _pecasController,
+                          onSubmitted: (text) {
+                            if (_pecasController.text == ""){
+                            }else{
+                              setState(() {
+                                lista.add(_pecasController.text);
+                                _pecasController.text = "";
+                                print(lista.length);
+                              });
+                            }
+                          },
+                        )),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
                       flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 75),
-                        child: Icon(
-                          Icons.playlist_add,
+                      child: GestureDetector(
+                        child: Icon(    Icons.playlist_add,
                           color: Colors.blue,
-                          size: 40,
-                        ),
+                          size: 40),
+                        onTap: () {
+                          if (_pecasController.text == ""){
+                          }else{
+                            setState(() {
+                              lista.add(_pecasController.text);
+                              _pecasController.text = "";
+                              print(lista.length);
+
+                            });
+                          }
+                        },
                       ),
-                    )),
-              ]),
+                    ),
+                  ])),
+
+
+              // Row(children: [
+              //   Expanded(
+              //     flex: 5,
+              //     child: Padding(
+              //       padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+              //       child: TextField(
+              //         focusNode: _focusNodes[8],
+              //         decoration: InputDecoration(
+              //             hintText: "Peça",
+              //             labelText: "Peça",
+              //             labelStyle:
+              //                 TextStyle(fontSize: 20, color: Colors.blue)),
+              //         controller: _pecasController,
+              //         onSubmitted: (text) {
+              //           if (_pecasController.text == ""){
+              //           }else{
+              //             setState(() {
+              //               lista.add(_pecasController.text);
+              //               _pecasController.text = "";
+              //               print(lista.length);
+              //             });
+              //           }
+              //         },
+              //       ),
+              //     ),
+              //   ),
+              //   GestureDetector(
+              //       onTap: () {
+              //         if (_pecasController.text == ""){
+              //         }else{
+              //           setState(() {
+              //             lista.add(_pecasController.text);
+              //             _pecasController.text = "";
+              //             print(lista.length);
+              //
+              //           });
+              //         }
+              //       },
+              //       child: Expanded(
+              //         flex: 1,
+              //         child: Padding(
+              //           padding: EdgeInsets.only(right: 75),
+              //           child: Icon(
+              //             Icons.playlist_add,
+              //             color: Colors.blue,
+              //             size: 40,
+              //           ),
+              //         ),
+              //       )),
+              // ]),
+
+
+
               Container(
                 height: 300,
                 padding: EdgeInsets.all(20),
